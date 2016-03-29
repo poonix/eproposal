@@ -1,0 +1,9 @@
+/* CUSTOM CLASSES 
+-------------------- */
+.m-error {
+    color: #a94442;
+	margin-top: 3px;
+	margin-bottom: -8px;
+	height: 5px;
+	font-size: 12px;
+}
