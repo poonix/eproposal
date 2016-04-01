@@ -261,6 +261,10 @@ class User extends MY_Controller {
     public function process_signout()
     {
         $this->is_logged();
+        //log user activities
+        
+        $activities = 'sign out';
+        $this->insert_activities_user($activities);
         
 		//Set session userdata
 		$session_array = array(
@@ -278,11 +282,6 @@ class User extends MY_Controller {
         
 		//Set session flashdata
 		$this->session->set_flashdata('message_success', 'Anda telah berhasil sign out!');
-		
-        //log user activities
-        $activities = 'sign out';
-        $this->insert_activities_user($activities);
-        
         redirect('sign-in');
     }
     
@@ -296,8 +295,12 @@ class User extends MY_Controller {
         
         //Set Spesific Javascript page
         $data['script'] = $this->load->view('page/user/script/script-myprofile', NULL, TRUE);
+        
+        //==== Get Data ====
     	$data['load_profile'] = $this->user_model->select_user_profile();
         $data['load_activities'] = $this->user_model->load_activities_user();
+        $data['load_provinsi'] = $this->location_model->select_dropdown_provinsi();
+        $data['load_kabupaten'] = $this->location_model->select_dropdown_kabupaten();
         
     	$this->template->view('page/user/my-profile',$data);
      

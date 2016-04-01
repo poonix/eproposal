@@ -34,6 +34,22 @@ class Proposal extends MY_Controller {
 		$this->template->view('page/proposal/index',$data);
 	}
     
+    public function create_proposal()
+    {
+        //Set Head Content
+		$head['title'] = 'Selamat datang di aplikasi e-proposal' ;
+		$this->load->view('include/head', $head, TRUE);
+        
+        //Set Spesific Javascript page
+        $data['script']     = $this->load->view('page/proposal/script/script-createproposal', NULL, TRUE);
+        
+        //==== Get Data ====
+        $data['load_provinsi'] = $this->location_model->select_dropdown_provinsi();
+        $data['load_kabupaten'] = $this->location_model->select_dropdown_kabupaten();
+        
+		$this->template->view('page/proposal/create-proposal',$data);
+    }
+    
     public function detail()
     {
         //Set Head Content

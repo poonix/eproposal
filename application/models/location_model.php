@@ -33,6 +33,49 @@ class location_model extends CI_Model
 					->get('epro_desa');
     }
     
+    public function select_dropdown_provinsi()
+    {
+        $result = $this->db
+                        ->from('epro_provinsi')
+    					->get();
+        $return = array();
+        
+        if($result->num_rows() > 0)
+        {
+            $return[] = '--Pilih Propinsi--'; 
+            foreach($result->result_array() as $row)
+            {
+                $return[$row['id']] = $row['nama_provinsi'];
+            }
+        }
+        
+        return $return;
+                       
+    }
+    
+    public function select_dropdown_kabupaten()
+    {
+        $result = $this->db
+                       ->select('epro_kabupaten.*,epro_kabupaten.id as idkab,epro_provinsi.*')
+                        ->from('epro_provinsi')
+                        ->join('epro_kabupaten','epro_kabupaten.id_provinsi = epro_provinsi.id','left')
+    					->order_by('epro_kabupaten.nama_kota')
+    					->get();
+        $return = array();
+        
+        if($result->num_rows() > 0)
+        {
+
+            foreach($result->result_array() as $row)
+            {
+                $return[$row['idkab']] = $row['nama_kota'];
+            }
+        }
+        
+        return $return;
+                       
+    }
+    
 	
 	//==== Update Data ====
 	public function update_user($data, $id_user)

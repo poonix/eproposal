@@ -23,31 +23,26 @@ var FormWizard = function () {
             errorClass: 'help-block',
             ignore: ':hidden',
             rules: {
-                firstName: {
-                    minlength: 2,
-                    required: true
-                },
-                lastName: {
-                    minlength: 2,
-                    required: true
-                },
-                 email: {
-                    required: true,
-                    email: true
-                },
-                password: {
-                    minlength: 6,
-                    required: true
-                },
-                password2: {
-                    required: true,
+                judulProposal: {
                     minlength: 5,
-                    equalTo: "#password"
+                    required: true
+                },
+                agendaKegiatan: {
+                    minlength: 2,
+                    required: true
+                },
+                 propinsi: {
+                    required: true
+                },
+                kabupaten: {
+                    required: true
                 }
             },
             messages: {
-                firstName: "First Name is required",
-                lastName: "Last Name is required"
+                judulProposal: "Judul proposal wajib diisi",
+                agendaKegiatan: "Agenda kegiatan wajib diisi",
+                propinsi: "propinsi wajib diisi",
+                kabupaten: "kabupaten/kota wajib diisi"
             },
             highlight: function (element) {
                 $(element).closest('.help-block').removeClass('valid');

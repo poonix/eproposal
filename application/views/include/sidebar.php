@@ -83,7 +83,7 @@
 								</a>
 								<ul class="sub-menu">								
 									<li>
-										<a href="form_text_editor.html">
+										<a href="<?php echo site_url('proposal/create_proposal'); ?>">
 											<span class="title">Buat Proposal</span>
 										</a>
 									</li>
@@ -210,37 +210,6 @@
 							</li>
 						</ul>
 						<!-- end: MAIN NAVIGATION MENU -->
-						<!-- start: CORE FEATURES -->
-						<div class="navbar-title">
-							<span>Core Features</span>
-						</div>
-						<ul class="folders">
-							<li>
-								<a href="pages_calendar.html">
-									<div class="item-content">
-										<div class="item-media">
-											<span class="fa-stack"> <i class="fa fa-square fa-stack-2x"></i> <i class="fa fa-terminal fa-stack-1x fa-inverse"></i> </span>
-										</div>
-										<div class="item-inner">
-											<span class="title"> Persejutuan Akses Pegawai </span>
-										</div>
-									</div>
-								</a>
-							</li>
-							<li>
-								<a href="pages_messages.html">
-									<div class="item-content">
-										<div class="item-media">
-											<span class="fa-stack"> <i class="fa fa-square fa-stack-2x"></i> <i class="fa fa-folder-open-o fa-stack-1x fa-inverse"></i> </span>
-										</div>
-										<div class="item-inner">
-											<span class="title"> Persetujuan Proposal </span>
-										</div>
-									</div>
-								</a>
-							</li>
-						</ul>
-						<!-- end: CORE FEATURES -->
 						<!-- start: DOCUMENTATION BUTTON -->
 						<div class="wrapper">
 							<a href="documentation.html" class="button-o">

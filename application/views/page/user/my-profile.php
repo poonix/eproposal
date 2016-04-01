@@ -192,7 +192,7 @@
 															<div class="col-md-6">
 																<div class="form-group">
 																	<label class="control-label">
-																		Nama Depan*
+																		Nama Depan<span class="symbol required"></span>
 																	</label>
 																	<input type="text" class="form-control" id="firstname" name="firstname" value="<?php echo $data[0]['nama_depan']; ?>">
 																</div>
@@ -204,14 +204,14 @@
 																</div>
                                                                 <div class="form-group">
 																	<label class="control-label">
-																		NIP*
+																		NIP<span class="symbol required"></span>
 																	</label>
 																	<input type="email" placeholder="12312312312" class="form-control" id="nip" name="nip" value="<?php echo $data[0]['nip']; ?>">
 																</div>
                                                                 
 																<div class="form-group">
 																	<label class="control-label">
-																		Alamat Email*
+																		Alamat Email<span class="symbol required"></span>
 																	</label>
 																	<input type="email" placeholder="example@example.com" class="form-control" id="email" name="email" value="<?php echo $data[0]['email']; ?>">
 																</div>
@@ -221,15 +221,29 @@
 																	</label>
 																	<input type="email" placeholder="08572662222" class="form-control" id="phone" name="phone" value="<?php echo $data[0]['notelp']; ?>">
 																</div>
+                                                                <div class="form-group">
+																	<label class="control-label">
+																		Provinsi<span class="symbol required"></span>
+																	</label>
+                                                                    <?php $aattrib = array('class'=>'form-control'); ?>
+																    <?php echo form_dropdown('provinsi', $load_provinsi, $data[0]['id_provinsi'],$aattrib); ?>
+																</div>
+                                                                <div class="form-group">
+																	<label class="control-label">
+																		Kabupaten/kota<span class="symbol required"></span>
+																	</label><br />
+																    <?php echo form_dropdown('kabupaten', $load_kabupaten, $data[0]['id_lokasi'],$aattrib); ?>
+																</div>
+                                                                    
 																<div class="form-group">
 																	<label class="control-label">
-																		Password*
+																		Password<span class="symbol required"></span>
 																	</label>
 																	<input type="password" placeholder="password" class="form-control" name="password" id="password" value="<?php echo $data[0]['password']; ?>">
 																</div>
 																<div class="form-group">
 																	<label class="control-label">
-																		Confirm Password*
+																		Confirm Password<span class="symbol required"></span>
 																	</label>
 																	<input type="password"  placeholder="password" class="form-control" id="password_again" name="password_again" value="<?php echo $data[0]['password']; ?>">
 																</div>
@@ -277,7 +291,7 @@
 													<div class="row">
 														<div class="col-md-12">
 															<div>
-																* Required Fields
+																<span class="symbol required"></span> Required Fields
 																<hr>
 															</div>
 														</div>
