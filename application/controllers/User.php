@@ -80,6 +80,10 @@ class User extends MY_Controller {
 			
 			//Set session flashdata
 			$this->session->set_flashdata('message_success', 'Anda berhasil masuk sebagai '.ucwords($user[0]['nama_depan'].'.'));
+            
+            //log user activities
+            $activities = 'sign in';
+            $this->insert_activities_user($activities);
 		}
 		else
 		{
@@ -275,6 +279,10 @@ class User extends MY_Controller {
 		//Set session flashdata
 		$this->session->set_flashdata('message_success', 'Anda telah berhasil sign out!');
 		
+        //log user activities
+        $activities = 'sign out';
+        $this->insert_activities_user($activities);
+        
         redirect('sign-in');
     }
     
@@ -288,8 +296,11 @@ class User extends MY_Controller {
         
         //Set Spesific Javascript page
         $data['script'] = $this->load->view('page/user/script/script-myprofile', NULL, TRUE);
-    	
+    	$data['load_profile'] = $this->user_model->select_user_profile();
+        $data['load_activities'] = $this->user_model->load_activities_user();
+        
     	$this->template->view('page/user/my-profile',$data);
+     
     }
     
     public function register()
@@ -299,7 +310,156 @@ class User extends MY_Controller {
         
         //Set Spesific Javascript page
         $data['script'] = $this->load->view('page/user/script/script-register', NULL, TRUE);
-    	
+    	$data['load_kab']	= $this->location_model->select_all_kabupaten();
+        
     	$this->load->view('page/user/register',$data);
+    }
+    
+     public function process_register()
+    {
+		//No data -> redirected to Daftar Pegawai 
+		if(count($_POST) == 0){
+			redirect('user', 'register');
+		}
+
+		//Default value is OK. If validations fail result will change to NG.
+		$output = array(
+			'result'  		=> 'OK'
+		);
+
+		//==== Get Data ====
+		$namaDepan	   = $this->security->xss_clean(strip_image_tags($this->input->post('nama_depan')));
+        $namaBelakang  = $this->security->xss_clean(strip_image_tags($this->input->post('nama_belakang')));
+        $nip	       = $this->security->xss_clean(strip_image_tags($this->input->post('nip')));
+        $kab	       = $this->security->xss_clean(strip_image_tags($this->input->post('kab')));
+        $email	       = $this->security->xss_clean(strip_image_tags($this->input->post('email')));
+        $password	   = do_hash($this->security->xss_clean(strip_image_tags($this->input->post('password'))));
+		
+		//==== Check Data ====
+        $data = array(
+                        'id_lokasi'     => $kab,
+                        'nama_depan'    => $namaDepan,
+                        'nama_belakang' => $namaBelakang,
+                        'nip'           => $nip,
+                        'email'         => $email,
+                        'password'      => $password,
+                        'status'        => 'new',
+                        'created_date'  => date('Y-m-d H:i:s'),
+                        'ip_address'    => $this->input->ip_address()
+                    );
+        $this->user_model->insert_register($data);
+		
+
+		//==== Send Email ===
+		$this->load->library('email');  
+        $this->email->clear();              
+        $this->email->from('no-reply@testing.com'); 
+		$this->email->to($email);	
+        $this->email->subject('Terimakasih Telah Melakukan Registrasi pada eproposal');
+		$message			= 'Registrasi anda berhasil. Kami akan melakukan verifikasi terlebih dahulu sebelum akun anda aktif';        
+        $this->email->message($message);  
+		$this->email->send();	
+		//Set session flashdata
+		$this->session->set_flashdata('message_success', 'Registrasi anda berhasil. kami akan melakukan verifikasi data terlebih dahulu sebelum akun anda AKTIF');
+		
+		
+		echo json_encode($output);
+		exit;
+	}
+    
+    //Function: Process of reset
+    public function need_activate()
+    {
+        $head['title'] = 'Selamat datang di aplikasi e-proposal' ;
+    	$this->load->view('include/head', $head, TRUE);
+        
+        //Set Spesific Javascript page
+        $data['script'] = $this->load->view('page/user/script/script-needactivation', NULL, TRUE);
+    	$data['load_user']	= $this->user_model->select_user_disabled();
+        
+    	$this->template->view('page/user/need_activate',$data);
+    }
+    
+    //Function: Process save edit status table live
+     public function process_save_edit_status()
+    {
+		//No data -> redirected to Daftar Pegawai 
+		if(count($_POST) == 0){
+			redirect('user', 'need_activate');
+		}
+
+		//Default value is OK. If validations fail result will change to NG.
+		$output = array(
+			'result'  		=> 'ok'
+		);
+
+		//==== Get Data ====
+        $id_user        = $this->security->xss_clean(strip_image_tags($this->input->post('pk')));
+        $name           = $this->security->xss_clean(strip_image_tags($this->input->post('name')));
+		$status 		= $this->security->xss_clean(strip_image_tags($this->input->post('value')));
+		
+		//==== Update Data ====
+		$data_update	= array(
+								'status'			=> $status
+							);
+		$this->user_model->update_user($data_update,$id_user);
+			
+		//Set session flashdata
+		$this->session->set_flashdata('message_success', 'Password telah berhasil diubah.');
+		
+        //log user activities
+        $activities = 'update status '.$status.' pada user '.$name;
+        $this->insert_activities_user($activities);
+        
+		echo json_encode($output);
+		exit;
+	}
+    
+    //Function: Process save edit status table live
+    public function process_save_edit_role()
+    {
+		//No data -> redirected to Daftar Pegawai 
+		if(count($_POST) == 0){
+			redirect('user', 'need_activate');
+		}
+
+		//Default value is OK. If validations fail result will change to NG.
+		$output = array(
+			'result'  		=> 'ok'
+		);
+
+		//==== Get Data ====
+        $id_user        = $this->security->xss_clean(strip_image_tags($this->input->post('pk')));
+        $name           = $this->security->xss_clean(strip_image_tags($this->input->post('name')));
+		$role 		= $this->security->xss_clean(strip_image_tags($this->input->post('value')));
+		
+		//==== Update Data ====
+		$data_update	= array(
+								'role'			=> $role
+							);
+		$this->user_model->update_user($data_update,$id_user);
+			
+		//Set session flashdata
+		$this->session->set_flashdata('message_success', 'Password telah berhasil diubah.');
+		
+        //log user activities
+        $activities = 'update status '.$status.' pada user '.$name;
+        $this->insert_activities_user($activities);
+        
+		echo json_encode($output);
+		exit;
+	}
+    
+    //Function: Process of reset
+    public function daftar_karyawan()
+    {
+        $head['title'] = 'Selamat datang di aplikasi e-proposal' ;
+    	$this->load->view('include/head', $head, TRUE);
+        
+        //Set Spesific Javascript page
+        $data['script']     = $this->load->view('page/user/script/script-daftarkaryawan', NULL, TRUE);
+    	$data['load_user']	= $this->user_model->load_all_user();
+        
+    	$this->template->view('page/user/daftar_karyawan',$data);
     }
 }

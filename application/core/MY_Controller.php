@@ -20,4 +20,16 @@ class MY_Controller extends CI_Controller
     {
         if ($this->session->userdata('logged_in') == FALSE) redirect('sign-in');
     }
+    
+    public function insert_activities_user($activities)
+    {
+        //==== Check Data ====
+        $data = array(
+                        'id_user'       => $this->session->userdata('sess_user_id'),
+                        'description'   => $activities,
+                        'date'          => date('Y-m-d H:i:s')
+                    );
+                    
+        $this->user_model->insert_activities_user($data);
+    }
 }

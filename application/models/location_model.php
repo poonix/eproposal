@@ -12,7 +12,7 @@ class location_model extends CI_Model
 	public function select_all_kabupaten()
     {
         return $this->db
-                    ->select('epro_kabupaten.*,epro_provinsi.*')
+                    ->select('epro_kabupaten.*,epro_kabupaten.id as idkab,epro_provinsi.*')
                     ->from('epro_provinsi')
                     ->join('epro_kabupaten','epro_kabupaten.id_provinsi = epro_provinsi.id','left')
 					->order_by('epro_kabupaten.nama_kota')

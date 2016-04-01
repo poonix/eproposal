@@ -11355,6 +11355,23 @@ td.small-width {
 }
 
 td.jdl a{
-    color: #333;
-    text-decoration: underline !important;
+    color: #ad4c22;
+}
+
+.explaint
+{
+    margin-top: 20px;
+}
+
+.explaint p
+{
+    position: relative;
+    font-size: 10px !important;
+}
+
+.explaint p label
+{
+    position: relative;
+    font-size: 10px !important;
+    width: 100px;
 }

@@ -29,12 +29,12 @@
 								<ul class="dropdown-menu dropdown-dark">
 									<li>
 										<a href="<?php echo site_url('user/my_profile'); ?>">
-											My Profile
+											Profil Saya
 										</a>
 									</li>
 									<li>
 										<a href="<?php echo site_url('user/process_signout'); ?>">
-											Sign Out
+											Keluar
 										</a>
 									</li>
 								</ul>

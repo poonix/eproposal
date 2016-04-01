@@ -9,7 +9,7 @@
 			</div>
 			<ol class="breadcrumb">
 				<li>
-					<span>Kabupaten</span>
+					<span>Kabupaten s</span>
 				</li>
 				<li class="active">
 					<span>Daftar Kabupaten</span>

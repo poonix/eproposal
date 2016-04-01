@@ -39,8 +39,8 @@
                                                 <tr>
 													<td class="jdl"><a href="<?php echo site_url('proposal/detail'); ?>"><?php echo $data->program; ?></a></td>
 													<td><?php echo $data->released_date; ?></td>
-													<td><?php echo $data->id_kabupaten; ?></td>
-                                                    <td><?php echo $data->id_kabupaten; ?></td>
+													<td><?php echo $data->nama_provinsi; ?></td>
+                                                    <td><?php echo $data->nama_kota; ?></td>
                                                     <td><span class="label label-sm label-info"><?php echo $data->status; ?></span></td>
 													<td>
 													<a href="#" class="edit-row">

@@ -1,3 +1,4 @@
+<?php $data=$load_profile->result_array(); ?>
 <div class="wrap-content container" id="container">
 						<!-- start: PAGE TITLE -->
 						<section id="page-title">
@@ -39,10 +40,15 @@
 													<div class="col-sm-5 col-md-4">
 														<div class="user-left">
 															<div class="center">
-																<h4>Peter Clark</h4>
+																<h4><?php echo $data[0]['nama_depan']; ?> <?php echo $data[0]['nama_belakang']; ?></h4>
 																<div class="fileinput fileinput-new" data-provides="fileinput">
 																	<div class="user-image">
-																		<div class="fileinput-new thumbnail"><img src="<?php echo base_url(); ?>assets/images/profile/default-profile.gif" alt="">
+																		<div class="fileinput-new thumbnail">
+                                                                        <?php if($data[0]['profile_picture'] == ''){ ?>
+                                                                        <img src="<?php echo base_url(); ?>assets/images/profile/default-profile.gif" alt="">
+                                                                        <?php }else{ ?>
+                                                                        <img src="<?php echo base_url(); ?>assets/images/profile/<?php echo $data[0]['profile_picture']; ?>" alt="<?php echo $data[0]['nama_depan']; ?> <?php echo $data[0]['nama_belakang']; ?>">
+                                                                        <?php } ?>
 																		</div>
 																		<div class="fileinput-preview fileinput-exists thumbnail"></div>
 																		<div class="user-image-buttons">
@@ -97,22 +103,14 @@
 																	<tr>
 																		<td>email:</td>
 																		<td>
-																		<a href="">
-																			peter@example.com
+																		<a href="mailto:<?php echo $data[0]['email']; ?>">
+																			<?php echo $data[0]['email']; ?>
 																		</a></td>
 																		<td><a href="#panel_edit_account" class="show-tab"><i class="fa fa-pencil edit-user-info"></i></a></td>
 																	</tr>
 																	<tr>
 																		<td>phone:</td>
-																		<td>(641)-734-4763</td>
-																		<td><a href="#panel_edit_account" class="show-tab"><i class="fa fa-pencil edit-user-info"></i></a></td>
-																	</tr>
-																	<tr>
-																		<td>skye</td>
-																		<td>
-																		<a href="">
-																			peterclark82
-																		</a></td>
+																		<td><?php echo $data[0]['notelp']; ?></td>
 																		<td><a href="#panel_edit_account" class="show-tab"><i class="fa fa-pencil edit-user-info"></i></a></td>
 																	</tr>
 																</tbody>
@@ -124,51 +122,30 @@
 																	</tr>
 																</thead>
 																<tbody>
+																	
 																	<tr>
-																		<td>Position</td>
-																		<td>UI Designer</td>
+																		<td>Provinsi</td>
+																		<td><?php echo $data[0]['nama_provinsi']; ?></td>
 																		<td><a href="#panel_edit_account" class="show-tab"><i class="fa fa-pencil edit-user-info"></i></a></td>
 																	</tr>
 																	<tr>
-																		<td>Last Logged In</td>
-																		<td>56 min</td>
+																		<td>Kabupaten</td>
+																		<td><?php echo $data[0]['nama_kota']; ?></td>
+																		<td><a href="#panel_edit_account" class="show-tab"><i class="fa fa-pencil edit-user-info"></i></a></td>
+																	</tr>
+                                                                    <tr>
+																		<td>SK</td>
+																		<td><?php echo $data[0]['sk']; ?></td>
 																		<td><a href="#panel_edit_account" class="show-tab"><i class="fa fa-pencil edit-user-info"></i></a></td>
 																	</tr>
 																	<tr>
-																		<td>Position</td>
-																		<td>Senior Marketing Manager</td>
-																		<td><a href="#panel_edit_account" class="show-tab"><i class="fa fa-pencil edit-user-info"></i></a></td>
-																	</tr>
-																	<tr>
-																		<td>Supervisor</td>
-																		<td>
-																		<a href="#">
-																			Kenneth Ross
-																		</a></td>
-																		<td><a href="#panel_edit_account" class="show-tab"><i class="fa fa-pencil edit-user-info"></i></a></td>
-																	</tr>
-																	<tr>
-																		<td>Status</td>
+																		<td>Hak Akses</td>
 																		<td><span class="label label-sm label-info">Administrator</span></td>
 																		<td><a href="#panel_edit_account" class="show-tab"><i class="fa fa-pencil edit-user-info"></i></a></td>
 																	</tr>
-																</tbody>
-															</table>
-															<table class="table">
-																<thead>
-																	<tr>
-																		<th colspan="3">Additional information</th>
-																	</tr>
-																</thead>
-																<tbody>
-																	<tr>
-																		<td>Birth</td>
-																		<td>21 October 1982</td>
-																		<td><a href="#panel_edit_account" class="show-tab"><i class="fa fa-pencil edit-user-info"></i></a></td>
-																	</tr>
-																	<tr>
-																		<td>Groups</td>
-																		<td>New company web site development, HR Management</td>
+                                                                    <tr>
+																		<td>Last Logged In</td>
+																		<td>56 min</td>
 																		<td><a href="#panel_edit_account" class="show-tab"><i class="fa fa-pencil edit-user-info"></i></a></td>
 																	</tr>
 																</tbody>
@@ -184,101 +161,20 @@
 															<div collapse="activities" ng-init="activities=false" class="panel-wrapper">
 																<div class="panel-body">
 																	<ul class="timeline-xs">
-																		<li class="timeline-item success">
-																			<div class="margin-left-15">
-																				<div class="text-muted text-small">
-																					2 minutes ago
-																				</div>
-																				<p>
-																					<a class="text-info" href>
-																						Steven
-																					</a>
-																					has completed his account.
-																				</p>
-																			</div>
-																		</li>
+                                                                        <?php if($load_activities->num_rows() > 0){ ?>
+                                                                        <?php foreach($load_activities->result() as $data1){ ?>
 																		<li class="timeline-item">
 																			<div class="margin-left-15">
 																				<div class="text-muted text-small">
-																					12:30
+																					<?php echo tgl_indo($data1->date); ?>
 																				</div>
-																				<p>
-																					Staff Meeting
+																				<p>	
+																				    <?php echo $data1->description; ?>	
 																				</p>
 																			</div>
 																		</li>
-																		<li class="timeline-item danger">
-																			<div class="margin-left-15">
-																				<div class="text-muted text-small">
-																					11:11
-																				</div>
-																				<p>
-																					Completed new layout.
-																				</p>
-																			</div>
-																		</li>
-																		<li class="timeline-item info">
-																			<div class="margin-left-15">
-																				<div class="text-muted text-small">
-																					Thu, 12 Jun
-																				</div>
-																				<p>
-																					Contacted
-																					<a class="text-info" href>
-																						Microsoft
-																					</a>
-																					for license upgrades.
-																				</p>
-																			</div>
-																		</li>
-																		<li class="timeline-item">
-																			<div class="margin-left-15">
-																				<div class="text-muted text-small">
-																					Tue, 10 Jun
-																				</div>
-																				<p>
-																					Started development new site
-																				</p>
-																			</div>
-																		</li>
-																		<li class="timeline-item">
-																			<div class="margin-left-15">
-																				<div class="text-muted text-small">
-																					Sun, 11 Apr
-																				</div>
-																				<p>
-																					Lunch with
-																					<a class="text-info" href>
-																						Nicole
-																					</a>
-																					.
-																				</p>
-																			</div>
-																		</li>
-																		<li class="timeline-item warning">
-																			<div class="margin-left-15">
-																				<div class="text-muted text-small">
-																					Wed, 25 Mar
-																				</div>
-																				<p>
-																					server Maintenance.
-																				</p>
-																			</div>
-																		</li>
-																		<li class="timeline-item">
-																			<div class="margin-left-15">
-																				<div class="text-muted text-small">
-																					Fri, 20 Mar
-																				</div>
-																				<p>
-																					New User Registration
-																					<a class="text-info" href>
-																						more details
-																					</a>
-																					.
-																				</p>
-																			</div>
-																		</li>
+                                                                        <?php } ?>
+                                                                        <?php } ?>
 																	</ul>
 																</div>
 															</div>
@@ -296,75 +192,49 @@
 															<div class="col-md-6">
 																<div class="form-group">
 																	<label class="control-label">
-																		First Name
+																		Nama Depan*
 																	</label>
-																	<input type="text" placeholder="Peter" class="form-control" id="firstname" name="firstname">
+																	<input type="text" class="form-control" id="firstname" name="firstname" value="<?php echo $data[0]['nama_depan']; ?>">
 																</div>
 																<div class="form-group">
 																	<label class="control-label">
-																		Last Name
+																		Nama Belakang
 																	</label>
-																	<input type="text" placeholder="Clark" class="form-control" id="lastname" name="lastname">
+																	<input type="text" class="form-control" id="lastname" name="lastname" value="<?php echo $data[0]['nama_belakang']; ?>">
+																</div>
+                                                                <div class="form-group">
+																	<label class="control-label">
+																		NIP*
+																	</label>
+																	<input type="email" placeholder="12312312312" class="form-control" id="nip" name="nip" value="<?php echo $data[0]['nip']; ?>">
+																</div>
+                                                                
+																<div class="form-group">
+																	<label class="control-label">
+																		Alamat Email*
+																	</label>
+																	<input type="email" placeholder="example@example.com" class="form-control" id="email" name="email" value="<?php echo $data[0]['email']; ?>">
 																</div>
 																<div class="form-group">
 																	<label class="control-label">
-																		Email Address
+																		Mobile
 																	</label>
-																	<input type="email" placeholder="peter@example.com" class="form-control" id="email" name="email">
+																	<input type="email" placeholder="08572662222" class="form-control" id="phone" name="phone" value="<?php echo $data[0]['notelp']; ?>">
 																</div>
 																<div class="form-group">
 																	<label class="control-label">
-																		Phone
+																		Password*
 																	</label>
-																	<input type="email" placeholder="(641)-734-4763" class="form-control" id="phone" name="email">
+																	<input type="password" placeholder="password" class="form-control" name="password" id="password" value="<?php echo $data[0]['password']; ?>">
 																</div>
 																<div class="form-group">
 																	<label class="control-label">
-																		Password
+																		Confirm Password*
 																	</label>
-																	<input type="password" placeholder="password" class="form-control" name="password" id="password">
-																</div>
-																<div class="form-group">
-																	<label class="control-label">
-																		Confirm Password
-																	</label>
-																	<input type="password"  placeholder="password" class="form-control" id="password_again" name="password_again">
+																	<input type="password"  placeholder="password" class="form-control" id="password_again" name="password_again" value="<?php echo $data[0]['password']; ?>">
 																</div>
 															</div>
 															<div class="col-md-6">
-																<div class="form-group">
-																	<label class="control-label">
-																		Gender
-																	</label>
-																	<div class="clip-radio radio-primary">
-																		<input type="radio" value="female" name="gender" id="us-female">
-																		<label for="us-female">
-																			Female
-																		</label>
-																		<input type="radio" value="male" name="gender" id="us-male" checked>
-																		<label for="us-male">
-																			Male
-																		</label>
-																	</div>
-																</div>
-																<div class="row">
-																	<div class="col-md-4">
-																		<div class="form-group">
-																			<label class="control-label">
-																				Zip Code
-																			</label>
-																			<input class="form-control" placeholder="12345" type="text" name="zipcode" id="zipcode">
-																		</div>
-																	</div>
-																	<div class="col-md-8">
-																		<div class="form-group">
-																			<label class="control-label">
-																				City
-																			</label>
-																			<input class="form-control tooltips" placeholder="London (UK)" type="text" data-original-title="We'll display it when you write reviews" data-rel="tooltip"  title="" data-placement="top" name="city" id="city">
-																		</div>
-																	</div>
-																</div>
 																<div class="form-group">
 																	<label>
 																		Image Upload
@@ -384,71 +254,30 @@
 																	</div>
 																</div>
 															</div>
-														</div>
-													</fieldset>
-													<fieldset>
-														<legend>
-															Additional Info
-														</legend>
-														<div class="row">
-															<div class="col-md-6">
+                                                            <div class="col-md-6">
 																<div class="form-group">
-																	<label class="control-label">
-																		Twitter
+																	<label>
+																		Upload SK
 																	</label>
-																	<span class="input-icon">
-																		<input class="form-control" type="text" placeholder="Text Field">
-																		<i class="fa fa-twitter"></i> </span>
-																</div>
-																<div class="form-group">
-																	<label class="control-label">
-																		Facebook
-																	</label>
-																	<span class="input-icon">
-																		<input class="form-control" type="text" placeholder="Text Field">
-																		<i class="fa fa-facebook"></i> </span>
-																</div>
-																<div class="form-group">
-																	<label class="control-label">
-																		Google Plus
-																	</label>
-																	<span class="input-icon">
-																		<input class="form-control" type="text" placeholder="Text Field">
-																		<i class="fa fa-google-plus"></i> </span>
-																</div>
-															</div>
-															<div class="col-md-6">
-																<div class="form-group">
-																	<label class="control-label">
-																		Github
-																	</label>
-																	<span class="input-icon">
-																		<input class="form-control" type="text" placeholder="Text Field">
-																		<i class="fa fa-github"></i> </span>
-																</div>
-																<div class="form-group">
-																	<label class="control-label">
-																		Linkedin
-																	</label>
-																	<span class="input-icon">
-																		<input class="form-control" type="text" placeholder="Text Field">
-																		<i class="fa fa-linkedin"></i> </span>
-																</div>
-																<div class="form-group">
-																	<label class="control-label">
-																		Skype
-																	</label>
-																	<span class="input-icon">
-																		<input class="form-control" type="text" placeholder="Text Field">
-																		<i class="fa fa-skype"></i> </span>
+																	<div class="fileinput fileinput-new" data-provides="fileinput">
+																		<div class="user-edit-image-buttons">
+																			<span class="btn btn-azure btn-file"><span class="fileinput-new"><i class="fa fa-picture"></i> Upload Sk</span><span class="fileinput-exists"><i class="fa fa-picture"></i> Change</span>
+																				<input type="file">
+																			</span>
+																			<a href="#" class="btn fileinput-exists btn-red" data-dismiss="fileinput">
+																				<i class="fa fa-times"></i> Remove
+																			</a>
+																		</div>
+																	</div>
 																</div>
 															</div>
 														</div>
 													</fieldset>
+													
 													<div class="row">
 														<div class="col-md-12">
 															<div>
-																Required Fields
+																* Required Fields
 																<hr>
 															</div>
 														</div>

@@ -25,17 +25,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<link href="http://fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css" />
 		<!-- end: GOOGLE FONTS -->
 		<!-- start: MAIN CSS -->
-		<link rel="stylesheet" href="<?php //echo base_url(); ?>./vendor/bootstrap/css/bootstrap.min.css">
-		<link rel="stylesheet" href="<?php //echo base_url(); ?>./vendor/fontawesome/css/font-awesome.min.css">
-		<link rel="stylesheet" href="<?php //echo base_url(); ?>./vendor/themify-icons/themify-icons.min.css">
-		<link href="<?php //echo base_url(); ?>./vendor/animate.css/animate.min.css" rel="stylesheet" media="screen">
-		<link href="<?php //echo base_url(); ?>./vendor/perfect-scrollbar/perfect-scrollbar.min.css" rel="stylesheet" media="screen">
-		<link href="<?php //echo base_url(); ?>./vendor/switchery/switchery.min.css" rel="stylesheet" media="screen">
+		<link rel="stylesheet" href="<?php echo base_url(); ?>/vendor/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" href="<?php echo base_url(); ?>/vendor/fontawesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="<?php echo base_url(); ?>/vendor/themify-icons/themify-icons.min.css">
+		<link href="<?php echo base_url(); ?>/vendor/animate.css/animate.min.css" rel="stylesheet" media="screen">
+		<link href="<?php echo base_url(); ?>/vendor/perfect-scrollbar/perfect-scrollbar.min.css" rel="stylesheet" media="screen">
+		<link href="<?php echo base_url(); ?>/vendor/switchery/switchery.min.css" rel="stylesheet" media="screen">
 		<!-- end: MAIN CSS -->
 		<!-- start: CLIP-TWO CSS -->
-		<link rel="stylesheet" href="<?php //echo base_url(); ?>./assets/css/styles.css">
-		<link rel="stylesheet" href="<?php //echo base_url(); ?>./assets/css/plugins.css">
-		<link rel="stylesheet" href="<?php //echo base_url(); ?>./assets/css/themes/theme-1.css" id="skin_color" />
+		<link rel="stylesheet" href="<?php echo base_url(); ?>/assets/css/styles.css">
+		<link rel="stylesheet" href="<?php echo base_url(); ?>/assets/css/plugins.css">
+		<link rel="stylesheet" href="<?php echo base_url(); ?>/assets/css/themes/theme-1.css" id="skin_color" />
 		<!-- end: CLIP-TWO CSS -->
 		<!-- start: CSS REQUIRED FOR THIS PAGE ONLY -->
 		<!-- end: CSS REQUIRED FOR THIS PAGE ONLY -->

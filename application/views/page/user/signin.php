@@ -42,7 +42,7 @@
 								if($e_message)
 								{
 							?>
-							<div class="alert alert-danger fade in">
+							<div class="alert alert-success fade in">
 								<a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>
 								<?php echo $e_message;?>
 							</div>
@@ -86,8 +86,12 @@
 									Sign In <i class="fa fa-arrow-circle-right"></i>
 								</button>
 							</div>
-							
+                            <br />
+                             <div class="form-group">
+                                <p style="text-align: center;">Tidak memiliki akun?<br /><a href="<?php echo site_url('user/register'); ?>">Daftarkan diri anda disini</a></p>
+                            </div>
 						</fieldset>
+                       
 					</form>
 					<!-- start: COPYRIGHT -->
 					<div class="copyright">
