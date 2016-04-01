@@ -291,4 +291,15 @@ class User extends MY_Controller {
     	
     	$this->template->view('page/user/my-profile',$data);
     }
+    
+    public function register()
+    {
+        $head['title'] = 'Selamat datang di aplikasi e-proposal' ;
+    	$this->load->view('include/head', $head, TRUE);
+        
+        //Set Spesific Javascript page
+        $data['script'] = $this->load->view('page/user/script/script-register', NULL, TRUE);
+    	
+    	$this->load->view('page/user/register',$data);
+    }
 }
