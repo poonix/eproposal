@@ -5,7 +5,7 @@
 <html lang="en">
 	<!--<![endif]-->
 	<!-- start: HEAD -->
-	<head>
+	<head> test 
 	   <?php $this->load->view('include/head'); ?>
 	</head>
 	<!-- end: HEAD -->
