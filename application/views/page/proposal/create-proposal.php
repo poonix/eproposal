@@ -20,7 +20,7 @@
 						<div class="container-fluid container-fullw bg-white">
 							<div class="row">
 								<div class="col-md-12">
-									<h5 class="over-title margin-bottom-15">Proposal Wizard <span class="text-bold">demo</span></h5>
+									<h5 class="over-title margin-bottom-15">Proposal <span class="text-bold">Wizard</span></h5>
 									<p>
 										Silahkan isi data dibawah ini dengan lengkap.
 									</p>
@@ -34,7 +34,7 @@
 														<div class="stepNumber">
 															1
 														</div>
-														<span class="stepDesc"><small> Personal Information </small></span>
+														<span class="stepDesc"><small> Tentukan Judul Proposal anda</small></span>
 													</a>
 												</li>
 												<li>
@@ -42,7 +42,7 @@
 														<div class="stepNumber">
 															2
 														</div>
-														<span class="stepDesc"> <small> Create an account </small></span>
+														<span class="stepDesc"> <small> Pilih Kegiatan</small></span>
 													</a>
 												</li>
 												<li>
@@ -50,7 +50,7 @@
 														<div class="stepNumber">
 															3
 														</div>
-														<span class="stepDesc"> <small> Billing details </small> </span>
+														<span class="stepDesc"> <small> Administrasi Kegiatan </small> </span>
 													</a>
 												</li>
 												<li>
@@ -70,26 +70,20 @@
 														<div class="padding-30">
 															<h2 class="StepTitle">Masukkan informasi dasar proposal anda</h2>
 															<p>
-														    Kami akan melakukan verifikasi proposal anda secara rinci.  
+														    Kami akan melakukan verifikasi proposal anda secara rinci.  mohon untuk memasukkan data-data provinsi anda seperti jumlah penduduk, jumlah pengangguran. diharapkan data tersebut berdasarkan fakta dilapangan.
 															</p>
 														</div>
 													</div>
 													<div class="col-md-7">
 														<fieldset>
 															<legend>
-																Personal Information
+																Buat Proposal
 															</legend>
 															<div class="form-group">
 																<label>
 																	Judul Proposal <span class="symbol required"></span>
 																</label>
 																<input type="text" placeholder="Masukkan judul proposal" class="form-control" name="judulProposal"/>
-															</div>
-                                                            <div class="form-group">
-																<label>
-																	Agenda Kegiatan <span class="symbol required"></span>
-																</label>
-																<input type="text" placeholder="Agenda Kegiatan" class="form-control" name="agendaKegiatan"/>
 															</div>
 															<div class="form-group">
 																<label>
@@ -108,74 +102,44 @@
 																	<option value="AK">Alaska</option>
 																</select>
 															</div>
-															<p>
-																<a href="javascript:void(0)" data-content="Your personal information is not required for unlawful purposes, but only in order to proceed in this tutorial" data-title="Don't worry!" data-placement="top" data-toggle="popover">
-																	Why do you need my personal information?
-																</a>
-															</p>
-														</fieldset>
-														<fieldset>
-															<legend>
-																Security question
-															</legend>
-															<p>
-																Enter security questions in case you lose access to your account. <span class="text-small block">Be sure to pick questions that you will remember the answers to.</span>
-															</p>
-															<div class="panel-group accordion" id="accordion">
-																<div class="panel panel-white">
-																	<div class="panel-heading">
-																		<h5 class="panel-title">
-																		<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-																			<i class="icon-arrow"></i> What was the name of your first stuffed animal?
-																		</a></h5>
-																	</div>
-																	<div id="collapseOne" class="panel-collapse collapse">
-																		<div class="panel-body">
-																			<div class="form-group">
-																				<input type="text" class="form-control" name="stuffedAnimal" placeholder="Enter the the name of your first stuffed animal">
-																			</div>
-																		</div>
-																	</div>
-																</div>
-																<div class="panel panel-white">
-																	<div class="panel-heading">
-																		<h5 class="panel-title">
-																		<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-																			<i class="icon-arrow"></i> What is your grandfather's first name?
-																		</a></h5>
-																	</div>
-																	<div id="collapseTwo" class="panel-collapse collapse">
-																		<div class="panel-body">
-																			<div class="form-group">
-																				<input type="text" class="form-control" name="grandfatherName" placeholder="Enter your grandfather's first name">
-																			</div>
-																		</div>
-																	</div>
-																</div>
-																<div class="panel panel-white">
-																	<div class="panel-heading">
-																		<h5 class="panel-title">
-																		<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-																			<i class="icon-arrow"></i> In what city your grandmother live?
-																		</a></h5>
-																	</div>
-																	<div id="collapseThree" class="panel-collapse collapse">
-																		<div class="panel-body">
-																			<div class="form-group">
-																				<input type="text" class="form-control" name="grandmotherCity" placeholder="Enter your grandmother's city">
-																			</div>
-																		</div>
-																	</div>
-																</div>
+                                                            <div class="form-group">
+																<label>
+																	Jumlah penduduk <span class="symbol required"></span>
+																</label>
+																<input type="text" placeholder="ex.12500000" class="form-control" name="tingkatPengangguran"/>
+															</div>
+                                                            <div class="form-group">
+																<label>
+																	Jumlah pengangguran <span class="symbol required"></span>
+																</label>
+																<input type="text" placeholder="ex.12500000" class="form-control" name="tingkatPengangguran"/>
 															</div>
 														</fieldset>
-														<div class="form-group">
-															<button class="btn btn-primary btn-o next-step btn-wide pull-right">
-																Next <i class="fa fa-arrow-circle-right"></i>
-															</button>
-														</div>
 													</div>
 												</div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <!-- start: TEXT EDITOR -->
+                                						<div class="container-fluid container-fullw bg-white">
+                                							<div class="row">
+                                								<div class="col-md-12">
+                                									<h5 class="over-title">Latar Belakang <span class="text-bold">Proposal</span> <span class="symbol required"></span></h5>
+                                									<p class="margin-bottom-30">
+                                										isi latar belakang merupakan konsep awal diajukannya proposal ini. isi latar belakang merupakan konsep awal diajukannya proposal ini. isi latar belakang merupakan konsep awal diajukannya proposal ini.
+                                									</p>
+                                									<textarea class="ckeditor form-control" cols="10" rows="10"></textarea>
+                                                                    <br />
+                                									<!-- end: TEXT EDITOR -->
+                                                                    <div class="form-group">
+            															<button class="btn btn-primary btn-o next-step btn-wide pull-right">
+            																Next <i class="fa fa-arrow-circle-right"></i>
+            															</button>
+            														</div>
+                                								</div>
+                                							</div>
+                                						</div>
+                                                    </div>
+                                                </div>
 											</div>
 											<!-- end: WIZARD STEP 1 -->
 											<!-- start: WIZARD STEP 2 -->
@@ -183,49 +147,65 @@
 												<div class="row">
 													<div class="col-md-5">
 														<div class="padding-30">
-															<h2 class="StepTitle">Create an account <span class="text-large block">to manage everything you do with Clip-Two</span></h2>
+															<h2 class="StepTitle">Jenis Kegiatan yang ingin diusulkan</h2>
 															<p>
-																You’ll enjoy personal services and great benefits including:
-															</p>
-															<p class="text-small">
-																<ul class="no-margin">
-																	<li>
-																		Access to exclusive releases and limited products.
-																	</li>
-																	<li>
-																		ng-Clip services, benefits and promotions.
-																	</li>
-																</ul>
+																Menjelaskan berapa meter dana yang diusulkan. Dimana letak kegiatan ingin dilaksanakan, seperti desa apa, kecamatan apa. 
 															</p>
 														</div>
 													</div>
 													<div class="col-md-7">
 														<fieldset>
 															<legend>
-																Account Credential
+																Kegiatan
 															</legend>
-															<div class="form-group">
-																<label class="control-label">
-																	Email <span class="symbol required"></span>
+															 <div class="form-group">
+																<label>
+																	Kegiatan<span class="symbol required"></span>
 																</label>
-																<input type="email" placeholder="Enter a valid E-mail" class="form-control" name="email">
+																<select class="form-control" name="kegiatan">
+																	<option value="">-- silahkan pilih kegiatan --</option>
+																	<option value="AL">Padat Karya Produktif</option>
+																	<option value="AK">Padat Karya Infrastruktur</option>
+                                                                    <option value="AK">Teknologi Tepat Guna</option>
+                                                                    <option value="AK">Tenaga kerja Mandiri</option>
+                                                                    <option value="AK">Informasi Bursa Kerja Online</option>
+																</select>
+															</div>
+                                                            <div class="form-group">
+																<label>
+																	Kategori Kegiatan<span class="symbol required"></span>
+																</label>
+																<select class="form-control" name="kabupaten">
+																	<option value="">-- silahkan pilih kategori kegiatan --</option>
+																	<option value="AL">Membangun Jalan Desa</option>
+																	<option value="AK">Membangun Gorong-gorong</option>
+                                                                    <option value="AK">Membangun Pasar Desa</option>
+																</select>
 															</div>
 															<div class="row">
 																<div class="col-md-6">
 																	<div class="form-group">
-																		<label class="control-label">
-																			Password <span class="symbol required"></span>
-																		</label>
-																		<input type="password" placeholder="Enter a Password" class="form-control" name="password" id="password"/>
-																	</div>
+        																<label>
+        																	Kecamatan<span class="symbol required"></span>
+        																</label>
+        																<select class="form-control" name="Kecamatan">
+        																	<option value="">&nbsp;</option>
+        																	<option value="AL">Alabama</option>
+        																	<option value="AK">Alaska</option>
+        																</select>
+        															</div>
 																</div>
 																<div class="col-md-6">
 																	<div class="form-group">
-																		<label class="control-label">
-																			Repeat Password <span class="symbol required"></span>
-																		</label>
-																		<input type="password" placeholder="Repeat Password" class="form-control" name="password2"/>
-																	</div>
+        																<label>
+        																	Desa<span class="symbol required"></span>
+        																</label>
+        																<select class="form-control" name="Desa">
+        																	<option value="">&nbsp;</option>
+        																	<option value="AL">Alabama</option>
+        																	<option value="AK">Alaska</option>
+        																</select>
+        															</div>
 																</div>
 															</div>
 														</fieldset>
@@ -246,96 +226,57 @@
 												<div class="row">
 													<div class="col-md-5">
 														<div class="padding-30">
-															<h2 class="StepTitle">Enter billing details</h2>
-															<p class="text-large">
-																You will need to enter your billing address and select your payment method.
-															</p>
-															<p class="text-small">
-																You can use most major credit card, as well as PayPal.
+															<h2 class="StepTitle">Administrasi Kegiatan</h2>
+															<p>
+																Isi informasi perkiraan biaya yang dibutuhkan untuk melaksanakan kegiatan ini. Seperti biaya transport dari kabupaten ke kppn, biaya transport dari kabupaten ke pusat, dll.
 															</p>
 														</div>
 													</div>
 													<div class="col-md-7">
 														<fieldset>
 															<legend>
-																Payment Method
+																Administrasi Kegiatan
 															</legend>
-															<label>
-																Payment type
-															</label>
 															<div class="form-group">
-																<div class="btn-group" data-toggle="buttons">
-																	<label class="btn btn-primary active">
-																		<input type="radio" name="paymentMethod" id="option1" autocomplete="off" value="credit card">
-																		<i class="fa fa-cc-visa" ></i> <i class="fa fa-cc-mastercard" ></i> Credit Card
-																	</label>
-																	<label class="btn btn-primary">
-																		<input type="radio" name="paymentMethod" id="option2" autocomplete="off" value="paypal">
-																		<i class="fa fa-cc-paypal" ></i> PayPal
-																	</label>
-																</div>
+																<label>
+																	Biaya Transportasi dari dinas ke KPPN <span class="symbol required"></span>
+																</label>
+																<div class="input-group">
+    																<span class="input-group-addon">Rp.</span>
+    																<input type="text" class="form-control">
+    																<span class="input-group-addon">.-</span>
+    															</div>
 															</div>
 															<div class="form-group">
 																<label>
-																	Card Number
+																	Biaya Transportasi dari dinas ke Bandara <span class="symbol required"></span>
 																</label>
-																<input type="text" class="form-control" name="cardNumber" placeholder="Enter Your Card Number">
+																<div class="input-group">
+    																<span class="input-group-addon">Rp.</span>
+    																<input type="text" class="form-control">
+    																<span class="input-group-addon">.-</span>
+    															</div>
 															</div>
-															<label>
-																Expires
-															</label>
-															<div class="row">
-																<div class="col-md-4 col-sm-6">
-																	<div class="form-group">
-																		<select class="cs-select cs-skin-slide">
-																			<option value="" disabled>Month</option>
-																			<option value="January">January</option>
-																			<option value="February">February</option>
-																			<option value="March">March</option>
-																			<option value="April">April</option>
-																			<option value="May">May</option>
-																			<option value="June">June</option>
-																			<option value="July">July</option>
-																			<option value="August">August</option>
-																			<option value="September">September</option>
-																			<option value="October">October</option>
-																			<option value="November">November</option>
-																			<option value="December">December</option>
-																		</select>
-																	</div>
-																</div>
-																<div class="col-md-4 col-sm-6">
-																	<div class="form-group">
-																		<select class="cs-select cs-skin-slide">
-																			<option value="" disabled>Year</option>
-																			<option value="2015">2015</option>
-																			<option value="2016">2016</option>
-																			<option value="2017">2017</option>
-																			<option value="2018">2018</option>
-																			<option value="2019">2019</option>
-																			<option value="2020">2020</option>
-																		</select>
-																	</div>
-																</div>
+															<div class="form-group">
+																<label>
+																	Biaya Transportasi dari dinas ke provinsi <span class="symbol required"></span>
+																</label>
+																<div class="input-group">
+    																<span class="input-group-addon">Rp.</span>
+    																<input type="text" class="form-control">
+    																<span class="input-group-addon">.-</span>
+    															</div>
 															</div>
-															<div class="row">
-																<div class="col-xs-12">
-																	<label>
-																		Security code
-																	</label>
-																	<div class="row">
-																		<div class="col-xs-3">
-																			<div class="form-group">
-																				<input type="text" class="form-control" name="securityCode" placeholder="Security code">
-																			</div>
-																		</div>
-																		<span class="help-inline col-xs-4">
-																			<a href="javascript:void(0)" data-content="The security code is a three-digit number on the back of your credit card, immediately following your main card number." data-title="How to find the security code" data-placement="top" data-toggle="popover">
-																				<i class="ti-help-alt text-large text-primary"></i>
-																			</a> </span>
-																	</div>
-																</div>
-															</div>
+                                                           <div class="form-group">
+                                                                <label>
+																	Biaya Transportasi dari dinas ke Jakarta <span class="symbol required"></span>
+																</label>
+    															<div class="input-group">
+    																<span class="input-group-addon">Rp.</span>
+    																<input type="text" class="form-control">
+    																<span class="input-group-addon">.-</span>
+    															</div>
+    														</div>
 														</fieldset>
 														<div class="form-group">
 															<button class="btn btn-primary btn-o back-step btn-wide pull-left">

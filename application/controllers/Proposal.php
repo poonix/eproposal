@@ -21,7 +21,7 @@ class Proposal extends MY_Controller {
 	public function index()
 	{
 	   
-	    //$this->is_logged();
+	    $this->is_logged();
         
         //Set Head Content
 		$head['title'] = 'Selamat datang di aplikasi e-proposal' ;
@@ -36,6 +36,7 @@ class Proposal extends MY_Controller {
     
     public function create_proposal()
     {
+        $this->is_logged();
         //Set Head Content
 		$head['title'] = 'Selamat datang di aplikasi e-proposal' ;
 		$this->load->view('include/head', $head, TRUE);
@@ -52,6 +53,7 @@ class Proposal extends MY_Controller {
     
     public function detail()
     {
+        $this->is_logged();
         //Set Head Content
 		$head['title'] = 'proposal detail' ;
 		$this->load->view('include/head', $head, TRUE);
