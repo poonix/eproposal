@@ -45,8 +45,12 @@ class Proposal extends MY_Controller {
         $data['script']     = $this->load->view('page/proposal/script/script-createproposal', NULL, TRUE);
         
         //==== Get Data ====
-        $data['load_provinsi'] = $this->location_model->select_dropdown_provinsi();
-        $data['load_kabupaten'] = $this->location_model->select_dropdown_kabupaten();
+		$id_p						= '';
+        $data['load_provinsi'] 		= $this->proposal_model->select_dropdown_provinsi();
+        $data['load_kabupaten'] 	= $this->proposal_model->select_dropdown_kabupaten($id_p);
+		$id_k						= '';
+        $data['load_kegiatan'] 		= $this->proposal_model->select_dropdown_kegiatan();
+        $data['load_sub_kegiatan']	= $this->proposal_model->select_dropdown_sub_kegiatan($id_k);
         
 		$this->template->view('page/proposal/create-proposal',$data);
     }
@@ -64,4 +68,28 @@ class Proposal extends MY_Controller {
         
         $this->template->view('page/proposal/proposal-detail',$data);
     }
+	
+	//Function: Get List of City, depends on Province
+	public function get_cities()
+	{
+        //Get Data
+		$id_p 			= $_GET['provinsi'];
+        $load_cities	= $this->proposal_model->select_dropdown_kabupaten($id_p);
+		
+        //Load Data
+		$aattrib_c 		= array('id'=>'kabupaten','class'=>'form-control');
+		echo form_dropdown('kabupaten', $load_cities, $aattrib_c);
+	}
+	
+	//Function: Get List of Sub Kegiatan, depends on Kegiatan
+	public function get_sub_kegiatan()
+	{
+        //Get Data
+		$id_k 			= $_GET['kegiatan'];
+        $load_kegiatan	= $this->proposal_model->select_dropdown_sub_kegiatan($id_k);
+		
+        //Load Data
+		$aattrib_k 		= array('id'=>'subKegiatan','class'=>'form-control');
+		echo form_dropdown('subKegiatan', $load_cities, $aattrib_k);
+	}
 }

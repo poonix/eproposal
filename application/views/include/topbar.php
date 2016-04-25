@@ -28,7 +28,7 @@
                                 <?php } ?>
 								<ul class="dropdown-menu dropdown-dark">
 									<li>
-										<a href="<?php echo site_url('user/my_profile'); ?>">
+										<a href="<?php echo site_url('my-profile'); ?>">
 											Profil Saya
 										</a>
 									</li>

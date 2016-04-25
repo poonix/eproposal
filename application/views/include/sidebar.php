@@ -58,16 +58,18 @@
 											<span class="title">Daftar Kabupaten/Kota</span>
 										</a>
 									</li>
+									<!--
 									<li>
-										<a href="<?php echo site_url('daftar-kecamatan')?>">
+										<a href="<?php //echo site_url('daftar-kecamatan')?>">
 											<span class="title">Daftar Kecamatan</span>
 										</a>
 									</li>
 									<li>
-										<a href="<?php echo site_url('daftar-desa')?>">
+										<a href="<?php //echo site_url('daftar-desa')?>">
 											<span class="title">Daftar Desa</span>
 										</a>
 									</li>
+									-->
 								</ul>
 							</li>
 							<li <?php if($this->uri->segment(1) == 'proposal'){ ?> class="active open" <?php } ?>>
@@ -111,19 +113,19 @@
 											<i class="ti-user"></i>
 										</div>
 										<div class="item-inner">
-											<span class="title"> Daftar Pegawai </span><i class="icon-arrow"></i>
+											<span class="title"> Data Pegawai </span><i class="icon-arrow"></i>
 										</div>
 									</div>
 								</a>
 								<ul class="sub-menu">
 									<li>
-										<a href="<?php echo site_url('user/daftar_karyawan'); ?>">
+										<a href="<?php echo site_url('daftar-pegawai'); ?>">
 											<span class="title"> Daftar Pegawai </span>
 										</a>
 									</li>
 									<li>
-										<a href="<?php echo site_url('user/need_activate'); ?>">
-											<span class="title"> Verifikasi Akses Pegawai </span>
+										<a href="<?php echo site_url('hak-akses-pegawai'); ?>">
+											<span class="title"> Hak Akses Pegawai </span>
 										</a>
 									</li>
 								</ul>

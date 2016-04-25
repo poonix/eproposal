@@ -1,13 +1,22 @@
 <script src="<?php echo base_url(); ?>vendor/bootstrap-fileinput/jasny-bootstrap.js"></script>
+<script src="<?php echo base_url(); ?>vendor/DataTables/jquery.dataTables.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/table-data.js"></script>
 <script>
 	jQuery(document).ready(function() {
 		Main.init();
+		TableData.init();
+		
+		//Script: Delete User
+		$('#sample_2 tbody').on('click', '.b-delete-user', function () {
+			var idUser = $(this).data('iduser'); 
+			$('.f-hidden-id-user').val(idUser);
+		} );
 		
 		//Empty error message
 		jQuery("#p-overview").click(function(){
 			if($("#m-ep-success").html()!='')
 			{
-				location.href = '<?php echo base_url();?>my-profile.html';
+				location.href = '<?php echo base_url();?>rincian-pegawai/'+ $('#f-hidden-id-user').val() +'.html';
 			}
 			
 			//Set empty error message 
@@ -55,28 +64,15 @@
 			$("#m-ep-city").html('');
 			$("#m-ep-status").html('');
 			
-			/*
-			jQuery("input").each(function() {
-				var element = jQuery(this);
-			   
-				if (element.val()=='' && (element.attr("name") != "f-ep-lastname" && element.attr("name") != "f-ep-phone")) {
-					element.css("background","#F5D4D4");
-					
-					element.focus(function() { 
-						element.css("cssText","background: #F5D4D4 !important");
-					});
-				}
-			});
-			*/
 			
 			//=== HTML5 VALIDATION IF BROWSER DOESNT SUPPORT ===
 			var i = 0;
 			if($('#f-ep-firstname').val() == ''){
-				$("#m-ep-firstname").html('<div class="label label-danger">Harus diisi</div>');
+				$("#m-ep-firstname").html('<div class="label label-danger">Wajib diisi</div>');
 				i = 1;
 			}
 			if($('#f-ep-nip').val() == ''){
-				$("#m-ep-nip").html('<div class="label label-danger">Harus diisi</div>');
+				$("#m-ep-nip").html('<div class="label label-danger">Wajib diisi</div>');
 				i = 1;
 			}
 			else
@@ -88,7 +84,7 @@
 				}
 			}
 			if($('#f-ep-email').val() == ''){
-				$("#m-ep-email").html('<div class="label label-danger">Harus diisi</div>');
+				$("#m-ep-email").html('<div class="label label-danger">Wajib diisi</div>');
 				i = 1;
 			}
 			else
@@ -107,15 +103,15 @@
 				}
 			}
 			if($('#f-ep-province option:selected').val() == '0'){
-				$("#m-ep-province").html('<div class="label label-danger">Harus diisi</div>');
+				$("#m-ep-province").html('<div class="label label-danger">Wajib diisi</div>');
 				i = 1;
 			}
 			if($('#f-ep-city option:selected').val() == '0' || $('#f-ep-city option:selected').val() == ''){
-				$("#m-ep-city").html('<div class="label label-danger">Harus diisi</div>');
+				$("#m-ep-city").html('<div class="label label-danger">Wajib diisi</div>');
 				i = 1;
 			}
 			if($('#f-ep-status option:selected').val() == ''){
-				$("#m-ep-status").html('<div class="label label-danger">Harus diisi</div>');
+				$("#m-ep-status").html('<div class="label label-danger">Wajib diisi</div>');
 				i = 1;
 			}
 			
@@ -124,7 +120,7 @@
 			}
 			
 			
-			var formURL = "<?php echo base_url()?>user/process_edit_my_profile";
+			var formURL = "<?php echo base_url()?>employee/process_edit_profile";
 			var formDatas = new FormData(this);
 			
 			var xhr = jQuery.ajax({
@@ -178,11 +174,11 @@
 			//=== HTML5 VALIDATION IF BROWSER DOESNT SUPPORT ===
 			var i = 0;
 			if($('#f-cp-password').val() == ''){
-				$("#m-cp-password").html('<div class="label label-danger">Harus diisi</div>');
+				$("#m-cp-password").html('<div class="label label-danger">Wajib diisi</div>');
 				i = 1;
 			}
 			if($('#f-cp-confirm-password').val() == ''){
-				$("#m-cp-confirm-password").html('<div class="label label-danger">Harus diisi</div>');
+				$("#m-cp-confirm-password").html('<div class="label label-danger">Wajib diisi</div>');
 				i = 1;
 			}
 			else
@@ -199,7 +195,7 @@
 			}
 			
 			
-			var formURL = "<?php echo base_url()?>user/process_change_password";
+			var formURL = "<?php echo base_url()?>employee/process_change_password";
 			var formDatas = new FormData(this);
 			
 			var xhr = jQuery.ajax({
@@ -213,7 +209,7 @@
 				var obj = jQuery.parseJSON(data);
 				
 				//Set Message
-				if(obj.result == 'OK') $("#m-cp-success").html('<div class="alert alert-success fade in"><a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>'+obj.msg+'</div>');
+				if(obj.result = 'OK') $("#m-cp-success").html('<div class="alert alert-success fade in"><a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>'+obj.msg+'</div>');
 				else $("#m-cp-error").html('<div class="alert alert-success fade in"><a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>'+obj.msg+'</div>');
 				
 				$('html, body').animate({ scrollTop: $("#m-cp-success").offset().top }, 'fast');
@@ -221,6 +217,130 @@
 				//Set value empty
 				$('#f-cp-password').val('');
 				$('#f-cp-confirm-password').val('');
+				
+				console.log(data);
+			});
+			xhr.fail(function() {
+				var failMsg = "Something error happened!";
+				alert(failMsg);
+			});	
+		});
+		
+		//Script: Add Profile Form Validation
+		jQuery("#form-add-profile").submit(function(e){
+			e.preventDefault();
+			
+			//Set empty error message 
+			$("#m-ep-success").html('');
+			$("#m-ep-error").html('');
+			$("#m-ep-firstname").html('');
+			$("#m-ep-nip").html('');
+			$("#m-ep-email").html('');
+			$("#m-ep-phone").html('');
+			$("#m-ep-province").html('');
+			$("#m-ep-city").html('');
+			$("#m-ep-status").html('');
+			$("#m-ep-password").html('');
+			$("#m-ep-confirm-password").html('');
+			
+			
+			//=== HTML5 VALIDATION IF BROWSER DOESNT SUPPORT ===
+			var i = 0;
+			if($('#f-ep-firstname').val() == ''){
+				$("#m-ep-firstname").html('<div class="label label-danger">Wajib diisi</div>');
+				i = 1;
+			}
+			if($('#f-ep-nip').val() == ''){
+				$("#m-ep-nip").html('<div class="label label-danger">Wajib diisi</div>');
+				i = 1;
+			}
+			else
+			{
+				if(!isAlphaNumeric($('#f-ep-nip').val())){
+					$("#m-ep-nip").html('<div class="label label-danger">Format salah</div>');
+					//return false;
+					i = 1;
+				}
+			}
+			if($('#f-ep-email').val() == ''){
+				$("#m-ep-email").html('<div class="label label-danger">Wajib diisi</div>');
+				i = 1;
+			}
+			else
+			{
+				if(!isValidEmailAddress($('#f-ep-email').val())){
+					$("#m-ep-email").html('<div class="label label-danger">Format salah</div>');
+					//return false;
+					i = 1;
+				}
+			}
+			if($('#f-ep-phone').val() != ''){
+				if(!$.isNumeric($('#f-ep-phone').val())){
+					$("#m-ep-phone").html('<div class="label label-danger">Format salah</div>');
+					//return false;
+					i = 1;
+				}
+			}
+			if($('#f-ep-province option:selected').val() == '0'){
+				$("#m-ep-province").html('<div class="label label-danger">Wajib diisi</div>');
+				i = 1;
+			}
+			if($('#f-ep-city option:selected').val() == '0' || $('#f-ep-city option:selected').val() == ''){
+				$("#m-ep-city").html('<div class="label label-danger">Wajib diisi</div>');
+				i = 1;
+			}
+			if($('#f-ep-status option:selected').val() == ''){
+				$("#m-ep-status").html('<div class="label label-danger">Wajib diisi</div>');
+				i = 1;
+			}
+			if($('#f-ep-password').val() == ''){
+				$("#m-ep-password").html('<div class="label label-danger">Wajib diisi</div>');
+				i = 1;
+			}
+			if($('#f-ep-confirm-password').val() == ''){
+				$("#m-ep-confirm-password").html('<div class="label label-danger">Wajib diisi</div>');
+				i = 1;
+			}
+			else
+			{
+				if($('#f-ep-confirm-password').val() != $('#f-ep-password').val()){
+					$("#m-ep-confirm-password").html('<div class="label label-danger">Konfirmasi password salah</div>');
+					//return false;
+					i = 1;
+				}
+			}
+			
+			if(i==1){
+				return false;
+			}
+			
+			
+			var formURL = "<?php echo base_url()?>employee/process_add_profile";
+			var formDatas = new FormData(this);
+			
+			var xhr = jQuery.ajax({
+				url: formURL,
+				type: 'POST',
+				data: formDatas,
+				processData: false,
+				contentType: false
+			});
+			xhr.done(function(data) {
+				var obj = jQuery.parseJSON(data);
+				
+				//Set Message
+				//if(obj.result = 'OK') $("#m-ep-success").html('<div class="alert alert-success fade in"><a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>'+obj.msg+'</div>');
+				//else $("#m-ep-error").html('<div class="alert alert-success fade in"><a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>'+obj.msg+'</div>');
+				
+				//$('html, body').animate({ scrollTop: 0 }, 'fast');
+				if(obj.result=='EX')
+				{
+					$("#m-ep-email").html('<div class="label label-danger">'+obj.msg+'</div>');
+				}
+				else
+				{
+					location.reload();
+				}
 				
 				console.log(data);
 			});

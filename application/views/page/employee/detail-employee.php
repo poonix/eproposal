@@ -1,17 +1,20 @@
-<?php $data=$load_profile->result_array(); ?>
+<?php $data=$load_user->result_array(); ?>
 <div class="wrap-content container" id="container">
 	<!-- start: PAGE TITLE -->
 	<section id="page-title">
 		<div class="row">
 			<div class="col-sm-8">
-				<h1 class="mainTitle">Profil User</h1>
+				<h1 class="mainTitle">RINCIAN PEGAWAI</h1>
 		   </div>
 			<ol class="breadcrumb">
 				<li>
-					<span><?php echo $this->session->userdata('sess_user_first_name'); ?></span>
+					<span>Data Pegawai</span>
+				</li>
+				<li>
+					<span>Daftar Pegawai</span>
 				</li>
 				<li class="active">
-					<span>Profil Saya</span>
+					<span>Rincian Pegawai</span>
 				</li>
 			</ol>
 		</div>
@@ -21,6 +24,8 @@
 	<div class="container-fluid container-fullw bg-white">
 		<div class="row">
 			<div class="col-md-12">
+				<a href="<?php echo site_url('daftar-pegawai');?>">&#8592 Kembali ke Daftar Pegawai</a>
+				<br/><br/>
 				<div class="tabbable">
 					<ul class="nav nav-tabs tab-padding tab-space-3 tab-blue" id="myTab4">
 						<li class="active">
@@ -40,14 +45,14 @@
 								<div class="col-sm-5 col-md-4">
 									<div class="user-left">
 										<div class="center">
-											<h4 id="ov-name"><?php echo $s_user_first_name; ?> <?php echo $s_user_last_name; ?></h4>
+											<h4 id="ov-name"><?php echo ucwords($data[0]['nama_depan']); ?> <?php echo ucwords($data[0]['nama_belakang']); ?></h4>
 											<div class="fileinput fileinput-new" data-provides="fileinput">
 												<div class="user-image">
 													<div id="ov-photo" class="fileinput-new thumbnail">
 													<?php if($data[0]['foto_profil'] == ''){ ?>
 													<img src="<?php echo base_url(); ?>assets/images/profile/default-profile.gif" alt="">
 													<?php }else{ ?>
-													<img src="<?php echo base_url(); ?>assets/images/profile/<?php echo $data[0]['foto_profil']; ?>" alt="<?php echo $s_user_first_name; ?> <?php echo $s_user_last_name; ?>">
+													<img src="<?php echo base_url(); ?>assets/images/profile/<?php echo $data[0]['foto_profil']; ?>" alt="<?php echo ucwords($data[0]['nama_depan']); ?> <?php echo ucwords($data[0]['nama_belakang']); ?>">
 													<?php } ?>
 													</div>
 													<div class="fileinput-preview fileinput-exists thumbnail"></div>
@@ -197,39 +202,12 @@
 							</div>
 						</div>
 						<div id="panel_edit_account" class="tab-pane fade">
-							<!--
-							<?php
-								/*$s_message = '';
-								$s_message = $this->session->flashdata('message_success');
-								if($s_message)
-								{*/
-							?>
-							<div class="alert alert-success fade in">
-								<a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>
-								<?php //echo $s_message;?>
-							</div>
-							<?php
-								/*}
-								
-								$e_message = '';
-								$e_message = $this->session->flashdata('message_error');
-								if($e_message)
-								{*/
-							?>
-							<div class="alert alert-danger fade in">
-								<a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>
-								<?php //echo $e_message;?>
-							</div>
-							<?php
-								//}
-							?>
-							-->
-							
 							<!-- Set message using script -->
 							<div id="m-ep-success"></div>
 							<div id="m-ep-error"></div>
 							
 							<form role="form" id="form-edit-profile">
+								<input type="hidden" id="f-hidden-id-user" name="f-hidden-id-user" value="<?php echo $data[0]['iduser'];?>" />
 								<input type="hidden" id="f-hidden-email-user" name="f-hidden-email-user" value="<?php echo $data[0]['email'];?>" />
 								<fieldset>
 									<legend>
@@ -288,10 +266,6 @@
 												<?php echo ($id_kabupaten == '') ? form_dropdown('f-ep-city', $load_kabupaten, $aattrib_c) : form_dropdown('f-ep-city', $load_kabupaten, $id_kabupaten, $aattrib_c); ?>
 												<div id="m-ep-city"></div>
 											</div>
-											<?php
-												if($data[0]['id_user_group']==1) //Administrator only
-												{
-											?>
 											<div class="form-group">
 												<label class="control-label">
 													Status<span class="symbol required"></span>
@@ -300,9 +274,6 @@
 												<?php echo form_dropdown('f-ep-status', $content, $data[0]['is_active'], $aattrib_s); ?>
 												<div id="m-ep-status"></div>
 											</div>
-											<?php
-												}
-											?>
 										</div>
 										<div class="col-md-6">
 											<div class="form-group">
@@ -357,25 +328,6 @@
 												</div>
 											</div>
 										</div>
-										<!--
-										<div class="col-md-6">
-											<div class="form-group">
-												<label>
-													Unggah SK
-												</label>
-												<div class="fileinput fileinput-new" data-provides="fileinput">
-													<div class="user-edit-image-buttons">
-														<span class="btn btn-azure btn-file"><span class="fileinput-new"><i class="fa fa-picture"></i> Upload Sk</span><span class="fileinput-exists"><i class="fa fa-picture"></i> Ubah</span>
-															<input type="file">
-														</span>
-														<a href="#" class="btn fileinput-exists btn-red" data-dismiss="fileinput">
-															<i class="fa fa-times"></i> Hapus
-														</a>
-													</div>
-												</div>
-											</div>
-										</div>
-										-->
 									</div>
 								</fieldset>
 								
@@ -408,6 +360,7 @@
 							<div id="m-cp-error"></div>
 							
 							<form role="form" id="form-change-password">
+								<input type="hidden" id="f-hidden-id-user" name="f-hidden-id-user" value="<?php echo $data[0]['iduser'];?>" />
 								<fieldset>
 									<legend>
 										Ubah Password
@@ -439,97 +392,7 @@
 									</div>
 								</fieldset>
 							</form>
-							
 						</div>
-						<!--
-						<div id="panel_projects" class="tab-pane fade">
-							<table class="table" id="projects">
-								<thead>
-									<tr>
-										<th>Project Name</th>
-										<th class="hidden-xs">Client</th>
-										<th>Proj Comp</th>
-										<th class="hidden-xs">%Comp</th>
-										<th class="hidden-xs center">Priority</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>IT Help Desk</td>
-										<td class="hidden-xs">Master Company</td>
-										<td>11 november 2014</td>
-										<td class="hidden-xs">
-										<div class="progress active progress-xs">
-											<div style="width: 70%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="70" role="progressbar" class="progress-bar progress-bar-warning">
-												<span class="sr-only"> 70% Complete (danger)</span>
-											</div>
-										</div></td>
-										<td class="center hidden-xs"><span class="label label-danger">Critical</span></td>
-									</tr>
-									<tr>
-										<td>PM New Product Dev</td>
-										<td class="hidden-xs">Brand Company</td>
-										<td>12 june 2014</td>
-										<td class="hidden-xs">
-										<div class="progress active progress-xs">
-											<div style="width: 40%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="40" role="progressbar" class="progress-bar progress-bar-info">
-												<span class="sr-only"> 40% Complete</span>
-											</div>
-										</div></td>
-										<td class="center hidden-xs"><span class="label label-warning">High</span></td>
-									</tr>
-									<tr>
-										<td>ClipTheme Web Site</td>
-										<td class="hidden-xs">Internal</td>
-										<td>11 november 2014</td>
-										<td class="hidden-xs">
-										<div class="progress active progress-xs">
-											<div style="width: 90%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="90" role="progressbar" class="progress-bar progress-bar-success">
-												<span class="sr-only"> 90% Complete</span>
-											</div>
-										</div></td>
-										<td class="center hidden-xs"><span class="label label-success">Normal</span></td>
-									</tr>
-									<tr>
-										<td>Local Ad</td>
-										<td class="hidden-xs">UI Fab</td>
-										<td>15 april 2014</td>
-										<td class="hidden-xs">
-										<div class="progress active progress-xs">
-											<div style="width: 50%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="50" role="progressbar" class="progress-bar progress-bar-warning">
-												<span class="sr-only"> 50% Complete</span>
-											</div>
-										</div></td>
-										<td class="center hidden-xs"><span class="label label-success">Normal</span></td>
-									</tr>
-									<tr>
-										<td>Design new theme</td>
-										<td class="hidden-xs">Internal</td>
-										<td>2 october 2014</td>
-										<td class="hidden-xs">
-										<div class="progress active progress-xs">
-											<div style="width: 20%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="20" role="progressbar" class="progress-bar progress-bar-success">
-												<span class="sr-only"> 20% Complete (warning)</span>
-											</div>
-										</div></td>
-										<td class="center hidden-xs"><span class="label label-danger">Critical</span></td>
-									</tr>
-									<tr>
-										<td>IT Help Desk</td>
-										<td class="hidden-xs">Designer TM</td>
-										<td>6 december 2014</td>
-										<td class="hidden-xs">
-										<div class="progress active progress-xs">
-											<div style="width: 40%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="40" role="progressbar" class="progress-bar progress-bar-warning">
-												<span class="sr-only"> 40% Complete (warning)</span>
-											</div>
-										</div></td>
-										<td class="center hidden-xs"><span class="label label-warning">High</span></td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-						-->
 					</div>
 				</div>
 			</div>

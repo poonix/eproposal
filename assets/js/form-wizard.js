@@ -24,25 +24,35 @@ var FormWizard = function () {
             ignore: ':hidden',
             rules: {
                 judulProposal: {
-                    minlength: 5,
+                    //minlength: 5,
                     required: true
                 },
                 agendaKegiatan: {
-                    minlength: 2,
+                    //minlength: 2,
                     required: true
                 },
-                 propinsi: {
+                provinsi: {
                     required: true
                 },
                 kabupaten: {
                     required: true
+                },
+                jmlPenduduk: {
+                    required: true,
+					digits: true
+                },
+                jmlPengangguran: {
+                    required: true,
+					digits: true
                 }
             },
             messages: {
-                judulProposal: "Judul proposal wajib diisi",
-                agendaKegiatan: "Agenda kegiatan wajib diisi",
-                propinsi: "propinsi wajib diisi",
-                kabupaten: "kabupaten/kota wajib diisi"
+                judulProposal: "Judul proposal wajib diisi.",
+                agendaKegiatan: "Agenda kegiatan wajib diisi.",
+                provinsi: "Provinsi wajib diisi.",
+                kabupaten: "Kabupaten/kota wajib diisi.",
+                jmlPenduduk: "Jumlah penduduk wajib diisi dan harus berupa angka.",
+                jmlPengangguran: "Jumlah pengangguran wajib diisi dan harus berupa angka."
             },
             highlight: function (element) {
                 $(element).closest('.help-block').removeClass('valid');

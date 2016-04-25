@@ -56,34 +56,66 @@ class User extends MY_Controller {
 		
 		if($sql_user->num_rows() > 0)
 		{
-			$user = $sql_user->result_array();
+			$user 		= $sql_user->result_array();
+			$flag_us	= '';
 			
-			//Set session userdata
-			$session_array = array(
-								'logged_in'					=> TRUE,
-								'sess_user_id'              => $user[0]['id'],
-								'sess_user_location'        => $user[0]['id_lokasi'],
-								'sess_user_first_name'  	=> ucwords($user[0]['nama_depan']),
-								'sess_user_last_name'  		=> ucwords($user[0]['nama_belakang'])
-							 );                
-			$this->session->set_userdata($session_array);
+			//Check User Group and Status 
+			if($user[0]['id_user_group'] == 1) //Administrator, no is_active validations
+			{
+				$flag_us = 'Y';
+			}
+			elseif($user[0]['id_user_group'] != '0' and $user[0]['is_active'] == 1) //Not Administrator, is_active should be '1' (active)
+			{
+				$flag_us = 'Y';
+			}
+			else //Ex: User group not assigned yet
+			{
+				$flag_us = 'N';
+			}
+				 
+			if($flag_us == 'Y') //Sign in 
+			{
+				//Set session userdata
+				$session_array = array(
+									'logged_in'					=> TRUE,
+									'sess_user_id'              => $user[0]['iduser'],
+									'sess_user_id_satker'       => $user[0]['id_satuan_kerja'],
+									'sess_user_provinsi'       	=> $user[0]['provinsi'],
+									'sess_user_kabupaten'       => $user[0]['kabupaten'],
+									'sess_user_nip'       		=> $user[0]['nip'],
+									'sess_user_first_name'  	=> ucwords($user[0]['nama_depan']),
+									'sess_user_last_name'  		=> ucwords($user[0]['nama_belakang'])
+								 );                
+				$this->session->set_userdata($session_array);
+				
+				//Set output value
+				$output = array(
+					'result'  		=> 'OK',
+					'page'			=> $page
+				);
+				
+				//Unset session userdata
+				$this->session->set_userdata('sess_user_page','');
+				$this->session->unset_userdata('sess_user_page');
+				
+				//Set session flashdata
+				$this->session->set_flashdata('message_success', 'Anda berhasil masuk sebagai '.ucwords($user[0]['nama_depan'].'.'));
+				
+				//log user activities
+				$activities = 'sign in';
+				$this->insert_activities_user($activities);
+			}
+			else
+			{
+				//Set Output Value
+				$output = array(
+					'result'  		=> 'NG',
+					'page'			=> ''
+				);
 			
-			//Set output value
-			$output = array(
-				'result'  		=> 'OK',
-				'page'			=> $page
-			);
-			
-			//Unset session userdata
-			$this->session->set_userdata('sess_user_page','');
-			$this->session->unset_userdata('sess_user_page');
-			
-			//Set session flashdata
-			$this->session->set_flashdata('message_success', 'Anda berhasil masuk sebagai '.ucwords($user[0]['nama_depan'].'.'));
-            
-            //log user activities
-            $activities = 'sign in';
-            $this->insert_activities_user($activities);
+				//Set session flashdata
+				$this->session->set_flashdata('message_error', 'Sign in tidak berhasil, mohon hubungi Administrator.');
+			}
 		}
 		else
 		{
@@ -261,8 +293,8 @@ class User extends MY_Controller {
     public function process_signout()
     {
         $this->is_logged();
+		
         //log user activities
-        
         $activities = 'sign out';
         $this->insert_activities_user($activities);
         
@@ -270,10 +302,14 @@ class User extends MY_Controller {
 		$session_array = array(
 							'logged_in'					=> '',
 							'sess_user_id'              => '',
-							'sess_user_location'        => '',
+							'sess_user_id_satker'       => '',
+							'sess_user_provinsi'       	=> '',
+							'sess_user_kabupaten'       => '',
+							'sess_user_nip'        		=> '',
 							'sess_user_first_name'  	=> '',
 							'sess_user_last_name'  		=> ''
-						 );                
+						 );        
+						 
 		$this->session->set_userdata($session_array);
 		
 		//Unset session userdata and destroy all session userdata
@@ -284,7 +320,6 @@ class User extends MY_Controller {
 		$this->session->set_flashdata('message_success', 'Anda telah berhasil sign out!');
         redirect('sign-in');
     }
-    
     
     public function my_profile()
 	{
@@ -297,14 +332,302 @@ class User extends MY_Controller {
         $data['script'] = $this->load->view('page/user/script/script-myprofile', NULL, TRUE);
         
         //==== Get Data ====
-    	$data['load_profile'] = $this->user_model->select_user_profile();
-        $data['load_activities'] = $this->user_model->load_activities_user();
-        $data['load_provinsi'] = $this->location_model->select_dropdown_provinsi();
-        $data['load_kabupaten'] = $this->location_model->select_dropdown_kabupaten();
-        
+		$id_p						= '';
+    	$data['load_profile'] 		= $this->user_model->select_user_profile();
+        $data['load_activities'] 	= $this->user_model->load_activities_user();
+        $data['load_provinsi'] 		= $this->location_model->select_dropdown_provinsi();
+        $data['load_kabupaten'] 	= $this->location_model->select_dropdown_kabupaten($id_p);
+		
+		//==== Get Data: Provinsi ====
+		$data['id_provinsi']	= '';
+        $sql_provinsi			= $this->location_model->select_provinsi_by_name($this->session->userdata('sess_user_provinsi'));
+		if($sql_provinsi->num_rows() > 0) //Data Exists
+		{
+			$provinsi 				= $sql_provinsi->result_array();
+			$data['id_provinsi']	= $provinsi[0]['id']; 
+		}
+		
+		//==== Get Data: Kabupaten ====
+		$data['id_kabupaten']	= '';
+        $sql_kabupaten			= $this->location_model->select_kabupaten_by_name($this->session->userdata('sess_user_kabupaten'));
+		if($sql_kabupaten->num_rows() > 0) //Data Exists
+		{
+			$kabupaten 				= $sql_kabupaten->result_array();
+			$data['id_kabupaten']	= $kabupaten[0]['id'];
+		}
+		
+		//==== Get Session Userdata ====
+    	$data['s_user_id'] 			= $this->session->userdata('sess_user_id');
+		$data['s_user_id_satker'] 	= $this->session->userdata('sess_user_id_satker');
+		$data['s_user_nip'] 		= $this->session->userdata('sess_user_nip');
+		$data['s_user_first_name'] 	= $this->session->userdata('sess_user_first_name');
+		$data['s_user_last_name'] 	= $this->session->userdata('sess_user_last_name');
+		
     	$this->template->view('page/user/my-profile',$data);
      
     }
+	
+	//Function: Process of editing My Profile
+    public function process_edit_my_profile()
+    {
+		//No data -> redirected to Daftar Pegawai 
+		if(count($_POST) == 0){
+			redirect('dashboard', 'location');
+		}
+		
+		
+		//Default value is OK. If validations fail result will change to NG.
+		$result = 'OK';
+		$output = array(
+			'result'  		=> $result,
+			'msg'			=> ''
+		);
+
+		//==== Get Data ====
+		$firstname 		= $this->security->xss_clean(strip_image_tags($this->input->post('f-ep-firstname')));
+		$lastname 		= $this->security->xss_clean(strip_image_tags($this->input->post('f-ep-lastname')));
+		$nip	 		= $this->security->xss_clean(strip_image_tags($this->input->post('f-ep-nip')));
+		$email	 		= $this->security->xss_clean(strip_image_tags($this->input->post('f-ep-email')));
+		$phone	 		= $this->security->xss_clean(strip_image_tags($this->input->post('f-ep-phone')));
+		$province 		= $this->security->xss_clean(strip_image_tags($this->input->post('f-ep-province')));
+		$sql_province	= $this->location_model->select_provinsi_by_id($province);
+		if($sql_province->num_rows() > 0)
+		{
+			$p = $sql_province->result_array();
+			$n_province = $p[0]['nama_provinsi'];
+		}
+		else
+		{
+			$result = 'NG';
+		}
+		$city 			= $this->security->xss_clean(strip_image_tags($this->input->post('f-ep-city')));
+		$sql_city		= $this->location_model->select_kabupaten_by_id($city);
+		if($sql_city->num_rows() > 0)
+		{
+			$c = $sql_city->result_array();
+			$n_city = $c[0]['nama_kota'];
+		}
+		else
+		{
+			$result = 'NG';
+		}
+		$status			= $this->security->xss_clean(strip_image_tags($this->input->post('f-ep-status')));
+		$id_user		= $this->session->userdata('sess_user_id');
+		$u_email		= $this->security->xss_clean(strip_image_tags($this->input->post('f-hidden-email-user')));
+		$photo 			= $_FILES['f-ep-photo'];
+		$def_photo 		= $this->security->xss_clean(strip_image_tags($this->input->post('f-ep-hidden-photo')));
+		
+		//==== Check Email Existing ====
+		$sql_email = $this->user_model->select_user_email($email);
+		
+		if($sql_email->num_rows() == 0 or $u_email == $email) //Not exists or current user
+		{
+			//==== Update Data ====
+			if($result == 'OK')
+			{
+				// file paths to store
+				$paths= [];
+
+				// get file names
+				$filename = $photo['name'];
+				
+				if($filename == '')
+				{
+					if($def_photo == '')
+					{
+						$data_update	= array(
+												'nama_depan' 		=> ucwords($firstname),
+												'nama_belakang' 	=> ucwords($lastname),
+												'nip' 				=> $nip,
+												'email' 			=> $email,
+												'nomor_telepon'		=> $phone,
+												'provinsi' 			=> $n_province,
+												'kabupaten' 		=> $n_city,
+												'is_active' 		=> $status,
+												'modified_by'		=> $id_user,
+												'modified_date'		=> date("Y-m-d H:i:s")
+											);
+					}
+					else
+					{
+						$data_update	= array(
+												'nama_depan' 		=> ucwords($firstname),
+												'nama_belakang' 	=> ucwords($lastname),
+												'nip' 				=> $nip,
+												'email' 			=> $email,
+												'nomor_telepon'		=> $phone,
+												'provinsi' 			=> $n_province,
+												'kabupaten' 		=> $n_city,
+												'foto_profil'		=> $def_photo,
+												'is_active' 		=> $status,
+												'modified_by'		=> $id_user,
+												'modified_date'		=> date("Y-m-d H:i:s")
+											);
+					}
+					$this->user_model->update_user($data_update,$id_user);
+						
+					//Set session flashdata
+					//$this->session->set_flashdata('message_success', 'Profil telah berhasil diubah.');
+					
+					//Set session userdata
+					$session_array = array(
+										'sess_user_id_satker'       => '',
+										'sess_user_nip'        		=> $nip,
+										'sess_user_provinsi'       	=> $n_province,
+										'sess_user_kabupaten'       => $n_city,
+										'sess_user_first_name'  	=> $firstname,
+										'sess_user_last_name'  		=> $lastname
+									 );        
+									 
+					$this->session->set_userdata($session_array);
+					
+					$output = array(
+						'result'  		=> 'OK',
+						'msg'			=> 'Profil telah berhasil diubah.',
+						'prov'			=> $n_province,
+						'city'			=> $n_city
+					);
+				}
+				else
+				{
+					//Get new filename
+					$ext = end((explode(".", $filename)));
+					$new_filename	= 'profil-'.$id_user;
+					
+					//==== Upload Photo ====
+					$config['upload_path'] 		= './assets/images/profile';
+					$config['allowed_types'] 	= 'gif|jpg|png';
+					$config['max_size']    		= '2000';
+					$config['file_name'] 		= $new_filename;
+					$config['overwrite'] 		= TRUE;
+					$this->load->library('upload', $config);
+					$this->upload->initialize($config);
+					
+					
+					if(!$this->upload->do_upload('f-ep-photo')){
+						$success = false;
+						//break;
+					} else {
+						$data = $this->upload->data();
+						$success = true;
+					}
+					//==== End of Upload Photo ====
+					
+					// check and process based on successful status 
+					if ($success == true) {
+						
+						$data_update	= array(
+												'nama_depan' 		=> ucwords($firstname),
+												'nama_belakang' 	=> ucwords($lastname),
+												'nip' 				=> $nip,
+												'email' 			=> $email,
+												'nomor_telepon'		=> $phone,
+												'provinsi' 			=> $n_province,
+												'kabupaten' 		=> $n_city,
+												'foto_profil'		=> $new_filename.'.'.$ext,
+												'is_active' 		=> $status,
+												'modified_by'		=> $id_user,
+												'modified_date'		=> date("Y-m-d H:i:s")
+											);
+						$this->user_model->update_user($data_update,$id_user);
+							
+						//Set session flashdata
+						//$this->session->set_flashdata('message_success', 'Profil telah berhasil diubah.');
+						
+						//Set session userdata
+						$session_array = array(
+											'sess_user_id_satker'       => '',
+											'sess_user_nip'        		=> $nip,
+											'sess_user_provinsi'       	=> $n_province,
+											'sess_user_kabupaten'       => $n_city,
+											'sess_user_first_name'  	=> $firstname,
+											'sess_user_last_name'  		=> $lastname
+										 );        
+										 
+						$this->session->set_userdata($session_array);
+						
+						$output = array(
+							'result'  		=> 'OK',
+							'msg'			=> 'Profil telah berhasil diubah.'
+						);
+						
+					} else {
+						$output = array(
+							'result'  		=> 'NG',
+							'msg'			=> 'Terjadi kesalahan, mohon ulangi kembali.'
+						);
+						
+						// delete any uploaded files
+						foreach ($paths as $file) {
+							unlink($file);
+						}
+					} 
+				}
+			}
+			else
+			{
+				$output = array(
+					'result'  		=> 'NG',
+					'msg'			=> 'Terjadi kesalahan, mohon ulangi kembali.'
+				);
+				
+				//Set session flashdata
+				//$this->session->set_flashdata('message_error', 'Terjadi kesalahan, mohon ulangi kembali.');
+			}
+		}
+		else //Already exists
+		{
+			$output = array(
+						'result'  		=> 'EX',
+						'msg'			=> 'Email sudah terdaftar, mohon masukkan email lainnya.'
+					);
+		}
+		
+		echo json_encode($output);
+		exit;
+	}
+	
+	//Function: Process of changing password
+    public function process_change_password()
+    {
+		//No data -> redirected to Daftar Pegawai 
+		if(count($_POST) == 0){
+			redirect('dashboard', 'location');
+		}
+		
+		//Default value is OK. If validations fail result will change to NG.
+		$output = array(
+			'result'  		=> 'OK',
+			'msg'			=> 'Password telah berhasil diubah.'
+		);
+		
+		//==== Get Data ====
+		$password 		= $this->security->xss_clean(strip_image_tags($this->input->post('f-cp-password')));
+		$en_password	= do_hash($password);
+		$id_user		= $this->session->userdata('sess_user_id');
+		
+		//==== Update Data ====
+		$data_update	= array(
+								'password'			=> $en_password,
+								'modified_by'		=> $id_user,
+								'modified_date'		=> date("Y-m-d H:i:s")
+							);
+		$sql = $this->user_model->update_cp_user($data_update,$id_user);
+			
+		//Set session flashdata
+		//$this->session->set_flashdata('message_success', 'Password telah berhasil diubah.');
+		
+		if($sql === FALSE)
+		{
+			$output = array(
+				'result'  		=> 'NG',
+				'msg'			=> 'Terjadi kesalahan, mohon ulangi kembali.'
+			);
+		}
+		
+		echo json_encode($output);
+		exit;
+	}
     
     public function register()
     {
@@ -452,17 +775,4 @@ class User extends MY_Controller {
 		echo json_encode($output);
 		exit;
 	}
-    
-    //Function: Process of reset
-    public function daftar_karyawan()
-    {
-        $head['title'] = 'Selamat datang di aplikasi e-proposal' ;
-    	$this->load->view('include/head', $head, TRUE);
-        
-        //Set Spesific Javascript page
-        $data['script']     = $this->load->view('page/user/script/script-daftarkaryawan', NULL, TRUE);
-    	$data['load_user']	= $this->user_model->load_all_user();
-        
-    	$this->template->view('page/user/daftar_karyawan',$data);
-    }
 }

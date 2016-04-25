@@ -42,7 +42,7 @@
 								if($e_message)
 								{
 							?>
-							<div class="alert alert-success fade in">
+							<div class="alert alert-danger fade in">
 								<a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>
 								<?php echo $e_message;?>
 							</div>
@@ -54,7 +54,7 @@
 							</p>
 							<div class="form-group">
 								<span class="input-icon">
-									<input type="text" class="form-control" id="form-email" name="form-email" placeholder="email">
+									<input type="text" class="form-control" id="form-email" name="form-email" placeholder="Email">
 									<i class="fa fa-user"></i> 
 								</span>
 								<div id="m-email" class="m-error"></div>

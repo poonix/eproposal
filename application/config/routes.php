@@ -59,9 +59,19 @@ $route['translate_uri_dashes'] = FALSE;
 /*==== Controller: User ====*/
 $route['sign-in'] 			= 'user/signin';
 $route['forgot-password'] 	= 'user/forgot_password';
+$route['my-profile'] 		= 'user/my_profile';
 
 /*==== Controller: Location ====*/
-$route['daftar-provinsi'] 	= 'location/provinsi';
-$route['daftar-kabupaten'] 	= 'location/kabupaten';
-$route['daftar-kecamatan'] 	= 'location/kecamatan';
-$route['daftar-desa'] 		= 'location/desa';
+$route['daftar-provinsi'] 				= 'location/provinsi';
+$route['ubah-data-provinsi/(:num)'] 	= 'location/edit_provinsi/$1';
+$route['daftar-kabupaten'] 				= 'location/kabupaten';
+$route['ubah-data-kabupaten/(:num)']	= 'location/edit_kabupaten/$1';
+$route['daftar-kecamatan'] 				= 'location/kecamatan';
+$route['daftar-desa'] 					= 'location/desa';
+
+/*==== Controller: Employee ====*/
+$route['daftar-pegawai'] 				= 'employee/list_employee';
+$route['rincian-pegawai/(:num)'] 		= 'employee/detail_employee/$1';
+$route['tambah-pegawai'] 				= 'employee/add_employee';
+$route['hak-akses-pegawai'] 			= 'employee/user_group';
+$route['ubah-hak-akses-pegawai/(:num)']	= 'employee/edit_user_group/$1';
