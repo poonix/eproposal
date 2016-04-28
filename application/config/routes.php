@@ -75,3 +75,8 @@ $route['rincian-pegawai/(:num)'] 		= 'employee/detail_employee/$1';
 $route['tambah-pegawai'] 				= 'employee/add_employee';
 $route['hak-akses-pegawai'] 			= 'employee/user_group';
 $route['ubah-hak-akses-pegawai/(:num)']	= 'employee/edit_user_group/$1';
+
+/*==== Controller: Proposal ====*/
+$route['daftar-proposal'] 				= 'proposal';
+$route['rincian-proposal/(:num)'] 		= 'proposal/detail/$1';
+$route['tambah-proposal'] 				= 'proposal/create_proposal';

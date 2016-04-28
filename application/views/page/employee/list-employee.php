@@ -9,7 +9,7 @@
 			</div>
 			<ol class="breadcrumb">
 				<li>
-					<span>Data Pegawai</span>
+					<span>Pegawai</span>
 				</li>
 				<li class="active">
 					<span>Daftar Pegawai</span>

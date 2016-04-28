@@ -8,7 +8,7 @@
 		   </div>
 			<ol class="breadcrumb">
 				<li>
-					<span>Data Pegawai</span>
+					<span>Pegawai</span>
 				</li>
 				<li>
 					<span>Daftar Pegawai</span>
@@ -24,7 +24,7 @@
 	<div class="container-fluid container-fullw bg-white">
 		<div class="row">
 			<div class="col-md-12">
-				<a href="<?php echo site_url('daftar-pegawai');?>">&#8592 Kembali ke Daftar Pegawai</a>
+				<a href="<?php echo site_url('daftar-pegawai');?>">&#8592; Kembali ke Daftar Pegawai</a>
 				<br/><br/>
 				<div class="tabbable">
 					<ul class="nav nav-tabs tab-padding tab-space-3 tab-blue" id="myTab4">

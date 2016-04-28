@@ -8,7 +8,7 @@
 			</div>
 			<ol class="breadcrumb">
 				<li>
-					<span>Data Pegawai</span>
+					<span>Pegawai</span>
 				</li>
 				<li>
 					<span>Hak Akses Pegawai</span>

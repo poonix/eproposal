@@ -7,6 +7,12 @@
 	jQuery(document).ready(function() {
 		Main.init();
 		TableData.init();
+		
+		//Script: Delete Proposal
+		$('#sample_2 tbody').on('click', '.b-delete-proposal', function () {
+			var idProposal = $(this).data('idprop'); 
+			$('.f-hidden-id-proposal').val(idProposal);
+		} );
 	});
 </script>
 <!-- end: JavaScript Event Handlers for this page -->

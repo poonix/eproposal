@@ -43,7 +43,7 @@
 											<i class="ti-layout-grid2"></i>
 										</div>
 										<div class="item-inner">
-											<span class="title"> Data Lokasi </span><i class="icon-arrow"></i>
+											<span class="title"> Lokasi </span><i class="icon-arrow"></i>
 										</div>
 									</div>
 								</a>
@@ -85,12 +85,12 @@
 								</a>
 								<ul class="sub-menu">								
 									<li>
-										<a href="<?php echo site_url('proposal/create_proposal'); ?>">
+										<a href="<?php echo site_url('tambah-proposal'); ?>">
 											<span class="title">Buat Proposal</span>
 										</a>
 									</li>
 									<li>
-										<a href="<?php echo site_url('proposal'); ?>">
+										<a href="<?php echo site_url('daftar-proposal'); ?>">
 											<span class="title">Daftar Proposal</span>
 										</a>
 									</li>
@@ -113,7 +113,7 @@
 											<i class="ti-user"></i>
 										</div>
 										<div class="item-inner">
-											<span class="title"> Data Pegawai </span><i class="icon-arrow"></i>
+											<span class="title"> Pegawai </span><i class="icon-arrow"></i>
 										</div>
 									</div>
 								</a>

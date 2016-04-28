@@ -21,7 +21,18 @@ var FormWizard = function () {
         $.validator.setDefaults({
             errorElement: "span", // contain the error msg in a span tag
             errorClass: 'help-block',
-            ignore: ':hidden',
+            /*errorPlacement: function (error, element) { // render error placement for each input type
+                if (element.attr("type") == "radio" || element.attr("type") == "checkbox") { // for chosen elements, need to insert the error after the chosen container
+                    error.insertAfter($(element).closest('.form-group').children('div').children().last());
+                } else if (element.hasClass("ckeditor")) {
+                    error.appendTo($(element).closest('.form-group'));
+                } else {
+                    error.insertAfter(element);
+                    // for other inputs, just perform default behavior
+                }
+            },*/
+			ignore: ':hidden', //Ignore hidden, due to CKEditor
+			//ignore: "",
             rules: {
                 judulProposal: {
                     //minlength: 5,
@@ -44,6 +55,43 @@ var FormWizard = function () {
                 jmlPengangguran: {
                     required: true,
 					digits: true
+                },
+                latarBelakang: {
+                    required: true
+					/*required: function() 
+                        {
+                         CKEDITOR.instances.latarBelakang.updateElement();
+                        }*/
+				},
+                kegiatan: {
+                    required: true
+                },
+                subKegiatan: {
+                    required: true
+                },
+                kecamatan: {
+                    required: true
+                },
+                desa: {
+                    required: true
+                },
+                lampiranRAB: {
+                    required: true
+                },
+                totalAnggaran: {
+                    digits: true
+                },
+                biayaTB: {
+                    required: true,
+					digits: true
+                },
+                biayaTP: {
+                    required: true,
+					digits: true
+                },
+                biayaTJ: {
+                    required: true,
+					digits: true
                 }
             },
             messages: {
@@ -51,10 +99,35 @@ var FormWizard = function () {
                 agendaKegiatan: "Agenda kegiatan wajib diisi.",
                 provinsi: "Provinsi wajib diisi.",
                 kabupaten: "Kabupaten/kota wajib diisi.",
-                jmlPenduduk: "Jumlah penduduk wajib diisi dan harus berupa angka.",
-                jmlPengangguran: "Jumlah pengangguran wajib diisi dan harus berupa angka."
+                jmlPenduduk: {
+					required: "Jumlah penduduk wajib diisi.",
+					digits: "Jumlah penduduk harus berupa angka."
+				},
+                jmlPengangguran: {
+					required: "Jumlah pengangguran wajib diisi.",
+					digits: "Jumlah pengangguran harus berupa angka."
+				},
+                latarBelakang: "Latar belakang wajib diisi.",
+                kegiatan: "Kegiatan wajib diisi.",
+                subKegiatan: "Sub kegiatan wajib diisi.",
+                kecamatan: "Kecamatan wajib diisi.",
+                desa: "Desa wajib diisi.",
+                lampiranRAB: "RAB wajib diunggah.",
+                totalAnggaran: "Total anggaran harus berupa angka.",
+                biayaTB: {
+					required: "Biaya transportasi dinas - bandara wajib diisi.",
+					digits: "Biaya transportasi dinas - bandara harus berupa angka."
+				},
+                biayaTP: {
+					required:"Biaya transportasi dinas - provinsi wajib diisi.",
+					digits: "Biaya transportasi dinas - provinsi harus berupa angka."
+				},
+                biayaTJ: {
+					required: "Biaya transportasi dinas - Jakarta wajib diisi.",
+					digits: "Biaya transportasi dinas - Jakarta harus berupa angka."
+				}
             },
-            highlight: function (element) {
+            highlight: function (element) { 
                 $(element).closest('.help-block').removeClass('valid');
                 // display OK icon
                 $(element).closest('.form-group').removeClass('has-success').addClass('has-error').find('.symbol').removeClass('ok').addClass('required');
@@ -70,12 +143,15 @@ var FormWizard = function () {
                 $(element).closest('.form-group').removeClass('has-error').addClass('has-success').find('.symbol').removeClass('required').addClass('ok');
             }
         });
+		CKEDITOR.disableAutoInline = true;
+        $('textarea.ckeditor').ckeditor();
     };
     var displayConfirm = function () {
-        $('.display-value', form).each(function () {
+        //$('.display-value', form).each(function () {
+		$('#form', form).each(function () {
             var input = $('[name="' + $(this).attr("data-display") + '"]', form);
             if (input.attr("type") == "text" || input.attr("type") == "email" || input.is("textarea")) {
-                $(this).html(input.val());
+                $(this).html(input.val()); //alert($(this).html(input.val()));
             } else if (input.is("select")) {
                 $(this).html(input.find('option:selected').text());
             } else if (input.is(":radio") || input.is(":checkbox")) {
@@ -86,12 +162,12 @@ var FormWizard = function () {
             }
         });
     };
-    var onShowStep = function (obj, context) {
-    	if(context.toStep == numberOfSteps){
+    var onShowStep = function (obj, context) { 
+    	if(context.toStep == numberOfSteps){ 
     		$('.anchor').children("li:nth-child(" + context.toStep + ")").children("a").removeClass('wait');
             displayConfirm();
     	}
-        $(".next-step").unbind("click").click(function (e) {
+		$(".next-step").unbind("click").click(function (e) {
             e.preventDefault();
             wizardContent.smartWizard("goForward");
         });
@@ -114,15 +190,14 @@ var FormWizard = function () {
     };
     var onFinish = function (obj, context) {
         if (validateAllSteps()) {
-            alert('form submit function');
+            //alert('form submit function');
             $('.anchor').children("li").last().children("a").removeClass('wait').removeClass('selected').addClass('done').children('.stepNumber').addClass('animated tada');
-            //wizardForm.submit();
+            wizardForm.submit();
         }
     };
     var validateSteps = function (stepnumber, nextstep) {
         var isStepValid = false;
-        
-        
+		
         if (numberOfSteps >= nextstep && nextstep > stepnumber) {
         	
             // cache the form element selector

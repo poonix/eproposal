@@ -8,7 +8,7 @@
 			</div>
 			<ol class="breadcrumb">
 				<li>
-					<span>Data Lokasi</span>
+					<span>Lokasi</span>
 				</li>
 				<li>
 					<span>Daftar Kabupaten/Kota</span>
