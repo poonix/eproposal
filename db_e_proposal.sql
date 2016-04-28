@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 25, 2016 at 01:03 PM
+-- Generation Time: Apr 28, 2016 at 02:06 PM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `epro_activities_user` (
   `id_user` int(11) unsigned zerofill NOT NULL,
   `description` varchar(256) NOT NULL,
   `date` varchar(256) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=108 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=130 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `epro_activities_user`
@@ -144,7 +144,29 @@ INSERT INTO `epro_activities_user` (`id`, `id_user`, `description`, `date`) VALU
 (00000000104, 00000000007, 'sign in', '2016-04-24 21:58:46'),
 (00000000105, 00000000001, 'sign in', '2016-04-25 02:42:04'),
 (00000000106, 00000000001, 'sign in', '2016-04-25 15:42:21'),
-(00000000107, 00000000001, 'sign in', '2016-04-25 16:23:36');
+(00000000107, 00000000001, 'sign in', '2016-04-25 16:23:36'),
+(00000000108, 00000000001, 'sign in', '2016-04-25 21:56:04'),
+(00000000109, 00000000001, 'sign in', '2016-04-26 08:36:29'),
+(00000000110, 00000000001, 'sign in', '2016-04-26 12:32:09'),
+(00000000111, 00000000001, 'sign in', '2016-04-26 13:52:03'),
+(00000000112, 00000000001, 'sign in', '2016-04-26 14:07:18'),
+(00000000113, 00000000001, 'sign in', '2016-04-26 14:11:08'),
+(00000000114, 00000000001, 'sign in', '2016-04-26 22:05:36'),
+(00000000115, 00000000001, 'sign in', '2016-04-26 22:12:28'),
+(00000000116, 00000000001, 'sign in', '2016-04-26 22:22:08'),
+(00000000117, 00000000001, 'sign in', '2016-04-26 22:49:39'),
+(00000000118, 00000000001, 'sign in', '2016-04-26 22:52:13'),
+(00000000119, 00000000001, 'sign in', '2016-04-26 22:59:01'),
+(00000000120, 00000000001, 'sign in', '2016-04-26 23:01:03'),
+(00000000121, 00000000001, 'sign in', '2016-04-27 09:16:53'),
+(00000000122, 00000000001, 'sign in', '2016-04-27 12:20:27'),
+(00000000123, 00000000001, 'sign in', '2016-04-27 14:46:14'),
+(00000000124, 00000000001, 'sign in', '2016-04-27 15:09:40'),
+(00000000125, 00000000001, 'sign in', '2016-04-27 15:34:10'),
+(00000000126, 00000000001, 'sign in', '2016-04-27 15:43:43'),
+(00000000127, 00000000001, 'sign in', '2016-04-27 16:24:53'),
+(00000000128, 00000000001, 'sign in', '2016-04-27 16:30:29'),
+(00000000129, 00000000001, 'sign in', '2016-04-28 15:58:53');
 
 -- --------------------------------------------------------
 
@@ -733,28 +755,26 @@ CREATE TABLE IF NOT EXISTS `epro_proposal` (
 `id` int(11) unsigned zerofill NOT NULL,
   `provinsi` varchar(255) NOT NULL,
   `kabupaten` varchar(255) NOT NULL,
-  `catatan` text COMMENT 'apabila ada catatan khusus',
   `judul_proposal` varchar(255) NOT NULL COMMENT 'program proposal',
-  `nama_kegiatan` varchar(255) NOT NULL COMMENT 'nama kegiatan ',
   `latar_belakang` text NOT NULL,
   `tahun_anggaran` int(4) NOT NULL COMMENT 'tahun proposal diajukan',
   `nomor_sk` varchar(255) DEFAULT NULL COMMENT 'nomor sk',
   `jumlah_pengangguran` int(11) NOT NULL,
   `jumlah_penduduk` int(11) NOT NULL,
-  `status` varchar(255) NOT NULL COMMENT 'status proposal',
+  `status` enum('draft') NOT NULL COMMENT 'status proposal',
   `created_by` varchar(255) DEFAULT NULL,
   `created_date` datetime DEFAULT NULL,
   `modified_by` varchar(255) DEFAULT NULL,
   `modified_date` datetime DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `epro_proposal`
 --
 
-INSERT INTO `epro_proposal` (`id`, `provinsi`, `kabupaten`, `catatan`, `judul_proposal`, `nama_kegiatan`, `latar_belakang`, `tahun_anggaran`, `nomor_sk`, `jumlah_pengangguran`, `jumlah_penduduk`, `status`, `created_by`, `created_date`, `modified_by`, `modified_date`) VALUES
-(00000000003, '', '00000000001', NULL, 'PROGRAM PENEMPATAN DAN PEMBERDAYAAN TENAGA KERJA', 'PEMBERDAYAAN MASYARAKAT MELALUI PADAT KARYA PRODUKTIF', '', 2016, NULL, 0, 0, 'draft', 'administrator', '2016-03-30 12:49:23', NULL, NULL),
-(00000000004, '', '00000000002', NULL, 'PROGRAM PENEMPATAN DAN PEMBERDAYAAN TENAGA KERJA', 'PEMBERDAYAAN MASYARAKAT MELALUI PADAT KARYA INFRASTRUKTUR', '', 2016, NULL, 0, 0, 'draft', 'administrator', '2016-03-30 12:49:23', NULL, NULL);
+INSERT INTO `epro_proposal` (`id`, `provinsi`, `kabupaten`, `judul_proposal`, `latar_belakang`, `tahun_anggaran`, `nomor_sk`, `jumlah_pengangguran`, `jumlah_penduduk`, `status`, `created_by`, `created_date`, `modified_by`, `modified_date`) VALUES
+(00000000009, 'Nanggroe Aceh Darussalaam', 'Kabupaten Aceh Barat', 'judul proposal', '', 0, NULL, 234, 124, 'draft', '00000000001', '2016-04-27 16:04:51', NULL, NULL),
+(00000000010, 'Nanggroe Aceh Darussalaam', 'Kabupaten Aceh Besar', 'test', '<p>test latar belakang</p>\r\n', 0, NULL, 123123213, 132123, 'draft', '00000000001', '2016-04-28 18:48:05', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -765,14 +785,22 @@ INSERT INTO `epro_proposal` (`id`, `provinsi`, `kabupaten`, `catatan`, `judul_pr
 CREATE TABLE IF NOT EXISTS `epro_proposal_administrasi` (
 `id` int(11) unsigned zerofill NOT NULL,
   `id_proposal` int(11) unsigned zerofill NOT NULL,
-  `biaya_provinsi` int(11) DEFAULT NULL COMMENT 'biaya dari daerah ke provinsi',
-  `biaya_instansi` int(11) DEFAULT NULL COMMENT 'biaya dari daerah ke instansi pusat',
-  `biaya_kppn` int(11) DEFAULT NULL COMMENT 'biaya dari daerah ke KPPN',
+  `biaya_bandara` int(11) DEFAULT NULL COMMENT 'biaya dari daerah ke provinsi',
+  `biaya_provinsi` int(11) DEFAULT NULL COMMENT 'biaya dari daerah ke instansi pusat',
+  `biaya_jakarta` int(11) DEFAULT NULL COMMENT 'biaya dari daerah ke KPPN',
   `created_by` varchar(255) DEFAULT NULL,
   `created_date` datetime DEFAULT NULL,
   `modified_by` int(255) DEFAULT NULL,
   `modified_date` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `epro_proposal_administrasi`
+--
+
+INSERT INTO `epro_proposal_administrasi` (`id`, `id_proposal`, `biaya_bandara`, `biaya_provinsi`, `biaya_jakarta`, `created_by`, `created_date`, `modified_by`, `modified_date`) VALUES
+(00000000005, 00000000009, 123, 543, 1324, '00000000001', '2016-04-27 16:04:51', NULL, NULL),
+(00000000006, 00000000010, 1232134, 4345657, 3423542, '00000000001', '2016-04-28 18:48:05', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -787,11 +815,25 @@ CREATE TABLE IF NOT EXISTS `epro_proposal_detail` (
   `desa` varchar(255) NOT NULL,
   `kegiatan` varchar(255) NOT NULL,
   `sub_kegiatan` varchar(255) NOT NULL,
+  `anggaran_maks` int(11) NOT NULL,
+  `jenis_konten` enum('editor','upload') NOT NULL,
   `konten_proposal` text,
   `lampiran_proposal` varchar(255) DEFAULT NULL,
   `lampiran_rab` varchar(255) DEFAULT NULL,
-  `total_anggaran` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `total_anggaran` int(11) NOT NULL COMMENT 'Total anggaran RAB (optional)',
+  `created_by` varchar(255) NOT NULL,
+  `created_date` datetime NOT NULL,
+  `modified_by` varchar(255) NOT NULL,
+  `modified_date` datetime NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `epro_proposal_detail`
+--
+
+INSERT INTO `epro_proposal_detail` (`id`, `id_proposal`, `kecamatan`, `desa`, `kegiatan`, `sub_kegiatan`, `anggaran_maks`, `jenis_konten`, `konten_proposal`, `lampiran_proposal`, `lampiran_rab`, `total_anggaran`, `created_by`, `created_date`, `modified_by`, `modified_date`) VALUES
+(00000000005, 00000000009, 'Keca', 'Desa', 'Padat Karya Infrastruktur', 'Membangun Jalan Desa', 1000000, 'editor', '', '', 'WM Invoice Format.xlsx', 34, '00000000001', '2016-04-27 16:04:51', '', '0000-00-00 00:00:00'),
+(00000000006, 00000000010, 'Kecamatan Test', 'Desa Test', 'Padat Karya Infrastruktur', 'Membangun Pasar Desa', 0, 'editor', '<p>test editor</p>\r\n', '', 'ERD Bluprin v2.docx', 2147483647, '00000000001', '2016-04-28 18:48:05', '', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -876,7 +918,7 @@ CREATE TABLE IF NOT EXISTS `epro_sub_kegiatan` (
 `id` int(11) unsigned zerofill NOT NULL,
   `id_kegiatan` int(11) unsigned zerofill NOT NULL,
   `nama_sub_kegiatan` varchar(256) NOT NULL,
-  `anggaran_maks` int(11) DEFAULT NULL,
+  `anggaran_maks` int(11) NOT NULL,
   `is_active` tinyint(4) NOT NULL COMMENT '1=active, 0=inactive',
   `created_by` varchar(255) DEFAULT NULL,
   `created_date` datetime DEFAULT NULL,
@@ -889,10 +931,10 @@ CREATE TABLE IF NOT EXISTS `epro_sub_kegiatan` (
 --
 
 INSERT INTO `epro_sub_kegiatan` (`id`, `id_kegiatan`, `nama_sub_kegiatan`, `anggaran_maks`, `is_active`, `created_by`, `created_date`, `modified_by`, `modified_date`) VALUES
-(00000000001, 00000000002, 'Membangun Jalan Desa', NULL, 1, 'administrator', '2016-03-30 12:49:23', NULL, NULL),
-(00000000002, 00000000002, 'Membangun Gorong-gorong', NULL, 1, 'administrator', '2016-03-30 12:49:23', NULL, NULL),
-(00000000003, 00000000002, 'Membangun Pasar Desa', NULL, 1, 'administrator', '2016-03-30 12:49:23', NULL, NULL),
-(00000000004, 00000000002, 'Membangun Talut', NULL, 1, 'administrator', '2016-03-30 12:49:23', NULL, NULL);
+(00000000001, 00000000002, 'Membangun Jalan Desa', 0, 1, 'administrator', '2016-03-30 12:49:23', NULL, NULL),
+(00000000002, 00000000002, 'Membangun Gorong-gorong', 0, 1, 'administrator', '2016-03-30 12:49:23', NULL, NULL),
+(00000000003, 00000000002, 'Membangun Pasar Desa', 0, 1, 'administrator', '2016-03-30 12:49:23', NULL, NULL),
+(00000000004, 00000000002, 'Membangun Talut', 0, 1, 'administrator', '2016-03-30 12:49:23', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1049,7 +1091,7 @@ ALTER TABLE `epro_user_group`
 -- AUTO_INCREMENT for table `epro_activities_user`
 --
 ALTER TABLE `epro_activities_user`
-MODIFY `id` int(11) unsigned zerofill NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=108;
+MODIFY `id` int(11) unsigned zerofill NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=130;
 --
 -- AUTO_INCREMENT for table `epro_desa`
 --
@@ -1074,17 +1116,17 @@ MODIFY `id` int(11) unsigned zerofill NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 -- AUTO_INCREMENT for table `epro_proposal`
 --
 ALTER TABLE `epro_proposal`
-MODIFY `id` int(11) unsigned zerofill NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+MODIFY `id` int(11) unsigned zerofill NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `epro_proposal_administrasi`
 --
 ALTER TABLE `epro_proposal_administrasi`
-MODIFY `id` int(11) unsigned zerofill NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) unsigned zerofill NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `epro_proposal_detail`
 --
 ALTER TABLE `epro_proposal_detail`
-MODIFY `id` int(11) unsigned zerofill NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) unsigned zerofill NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `epro_proposal_verifikasi`
 --
