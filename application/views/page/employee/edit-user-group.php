@@ -43,10 +43,9 @@
 								<div class="col-md-6">
 									<div class="form-group">
 										<label class="control-label">
-											Nama<span class="symbol required"></span>
+											Nama
 										</label>
-										<input type="text" class="form-control" id="f-eu-provinsi" name="f-eu-provinsi" value="<?php echo ucwords($data[0]['nama_depan'].' '.$data[0]['nama_belakang']);?>" disabled>
-										<div id="m-ep-provinsi"></div>
+										<input type="text" class="form-control" value="<?php echo ucwords($data[0]['nama_depan'].' '.$data[0]['nama_belakang']);?>" disabled>
 									</div>
 									<div class="form-group">
 										<label class="control-label">

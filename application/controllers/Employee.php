@@ -27,7 +27,8 @@ class Employee extends MY_Controller {
     	$this->load->view('include/head', $head, TRUE);
         
 		//==== Get Data ====
-		$id_user					= $this->uri->segment(2);
+		$flag_page					= $this->uri->segment(2); //1 = Daftar pegawai; 2 = Daftar user group
+		$id_user					= $this->uri->segment(3);
 		
 		//==== Set Data ====
 		$id_p						= '';
@@ -38,6 +39,7 @@ class Employee extends MY_Controller {
         $data['load_kabupaten'] 	= $this->location_model->select_dropdown_kabupaten($id_p);
 		$data['id_provinsi']		= '0';
 		$data['id_kabupaten']		= '0';
+		$data['fpage']				= $flag_page;
 		
 		//==== Get Data: User ====
 		$sql_user 				= $this->employee_model->select_user_by_id($id_user);

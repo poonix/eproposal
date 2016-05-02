@@ -29,12 +29,6 @@
 				//return false;
 				i = 1;
 			}
-            
-			else if(!isValidEmailAddress($('#form-email').val())){
-					$("#m-email").html('<div>Format email tidak sesuai</div>');
-					//return false;
-					i = 1;
-			}
 			
 			if($('#form-password').val() == ''){
 				$("#m-password").html('<div>Password harap diisi</div>');

@@ -23,6 +23,17 @@ class proposal_model extends CI_Model
 					->where('epro_proposal.id',$id)
                     ->get();
     }
+	
+    public function select_proposal_by_status($status)
+    {
+        return $this->db
+                    ->select('epro_proposal.*,epro_proposal_detail.*,epro_proposal_administrasi.*,epro_proposal.id as idprop')
+                    ->from('epro_proposal')
+                    ->join('epro_proposal_detail','epro_proposal_detail.id_proposal=epro_proposal.id','left')
+                    ->join('epro_proposal_administrasi','epro_proposal_administrasi.id_proposal=epro_proposal.id','left')
+					->where('epro_proposal.status',$status)
+                    ->get();
+    }
     
     public function get_code_activation($value)
     {
@@ -188,6 +199,11 @@ class proposal_model extends CI_Model
     public function insert_proposal_administrasi($data)
     {
         $this->db->insert('epro_proposal_administrasi', $data);
+    }
+	
+    public function insert_proposal_verifikasi($data)
+    {
+        $this->db->insert('epro_proposal_verifikasi', $data);
     }
 	
 	

@@ -25,7 +25,7 @@
 					Silahkan isi data dibawah ini dengan lengkap.
 				</p>
 				<!-- start: WIZARD FORM -->
-				<form action="<?php echo site_url('proposal/process_add_proposal')?>" method="post" role="form" class="smart-wizard" id="form">
+				<form action="<?php echo site_url('proposal/process_add_proposal')?>" method="post" role="form" class="smart-wizard" id="form" enctype="multipart/form-data">
 					<div id="wizard" class="swMain">
 						<!-- start: WIZARD SEPS -->
 						<ul>
@@ -97,7 +97,7 @@
 											<label>
 												Provinsi<span class="symbol required"></span>
 											</label>
-											<?php $aattrib = array('id'=>'provinsi','class'=>'form-control'); ?>
+											<?php $aattrib = array('id'=>'provinsi','class'=>'js-example-data-array-selected form-control'); ?>
 											<?php echo form_dropdown('provinsi', $load_provinsi, NULL, $aattrib); ?>
 										</div>
 										<div class="form-group">
@@ -111,13 +111,13 @@
 											<label>
 												Jumlah penduduk <span class="symbol required"></span>
 											</label>
-											<input type="text" placeholder="ex.12500000" class="form-control" name="jmlPenduduk"/>
+											<input type="text" placeholder="ex.12500000" class="form-control" id="jmlPenduduk" name="jmlPenduduk"/>
 										</div>
 										<div class="form-group">
 											<label>
 												Jumlah pengangguran <span class="symbol required"></span>
 											</label>
-											<input type="text" placeholder="ex.12500000" class="form-control" name="jmlPengangguran"/>
+											<input type="text" placeholder="ex.12500000" class="form-control" id="jmlPengangguran" name="jmlPengangguran"/>
 										</div>
 									</fieldset>
 								</div>

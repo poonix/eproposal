@@ -24,7 +24,20 @@
 	<div class="container-fluid container-fullw bg-white">
 		<div class="row">
 			<div class="col-md-12">
+				<?php 
+					if($fpage == 1) //Back to 'Daftar Pegawai'
+					{
+				?>
 				<a href="<?php echo site_url('daftar-pegawai');?>">&#8592; Kembali ke Daftar Pegawai</a>
+				<?php
+					}
+					else
+					{
+				?>
+				<a href="<?php echo site_url('hak-akses-pegawai');?>">&#8592; Kembali ke Hak Akses Pegawai</a>
+				<?php
+					}
+				?>
 				<br/><br/>
 				<div class="tabbable">
 					<ul class="nav nav-tabs tab-padding tab-space-3 tab-blue" id="myTab4">

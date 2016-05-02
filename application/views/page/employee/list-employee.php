@@ -71,7 +71,7 @@
 								<?php }else{ ?>
 								<img width="50" src="<?php echo base_url(); ?>assets/images/profile/<?php echo $data->foto_profil; ?>" alt="<?php echo $data->nama_depan; ?> <?php echo $data->nama_belakang; ?>">
 								<?php } ?></td>
-								<td class="jdl"><a href="<?php echo site_url('rincian-pegawai/'.$data->iduser);?>"><?php echo $data->nama_depan; ?></a></td>
+								<td class="jdl"><a href="<?php echo site_url('rincian-pegawai/1/'.$data->iduser);?>"><?php echo $data->nama_depan; ?></a></td>
 								<td><?php echo $data->nama_belakang; ?></td>
 								<td><?php echo $data->nip; ?></td>
 								<td><?php echo $data->email; ?></td>

@@ -61,6 +61,14 @@ $route['sign-in'] 			= 'user/signin';
 $route['forgot-password'] 	= 'user/forgot_password';
 $route['my-profile'] 		= 'user/my_profile';
 
+/*==== Controller: Kagiatan ====*/
+$route['daftar-kegiatan'] 				= 'kegiatan';
+$route['ubah-data-kegiatan/(:num)'] 	= 'kegiatan/edit_kegiatan/$1';
+$route['daftar-sub-kegiatan'] 			= 'kegiatan/sub_kegiatan';
+$route['ubah-data-kabupaten/(:num)']	= 'location/edit_kabupaten/$1';
+$route['daftar-kecamatan'] 				= 'location/kecamatan';
+$route['daftar-desa'] 					= 'location/desa';
+
 /*==== Controller: Location ====*/
 $route['daftar-provinsi'] 				= 'location/provinsi';
 $route['ubah-data-provinsi/(:num)'] 	= 'location/edit_provinsi/$1';
@@ -71,12 +79,14 @@ $route['daftar-desa'] 					= 'location/desa';
 
 /*==== Controller: Employee ====*/
 $route['daftar-pegawai'] 				= 'employee/list_employee';
-$route['rincian-pegawai/(:num)'] 		= 'employee/detail_employee/$1';
+$route['rincian-pegawai/(:num)/(:num)'] = 'employee/detail_employee/$1/$2';
 $route['tambah-pegawai'] 				= 'employee/add_employee';
 $route['hak-akses-pegawai'] 			= 'employee/user_group';
 $route['ubah-hak-akses-pegawai/(:num)']	= 'employee/edit_user_group/$1';
 
 /*==== Controller: Proposal ====*/
 $route['daftar-proposal'] 				= 'proposal';
-$route['rincian-proposal/(:num)'] 		= 'proposal/detail/$1';
+$route['rincian-proposal/(:any)/(:num)']= 'proposal/detail/$1/$2';
 $route['tambah-proposal'] 				= 'proposal/create_proposal';
+$route['draft-proposal'] 				= 'proposal/list_proposal_draft';
+$route['draft-proposal/berkas/(:num)'] 	= 'proposal/upload_approval/$1';

@@ -50,11 +50,11 @@
 								}
 							?>
 							<p>
-								Silakan masukkan email dan password Anda
+								Silakan masukkan username dan password Anda
 							</p>
 							<div class="form-group">
 								<span class="input-icon">
-									<input type="text" class="form-control" id="form-email" name="form-email" placeholder="Email">
+									<input type="text" class="form-control" id="form-email" name="form-email" placeholder="username">
 									<i class="fa fa-user"></i> 
 								</span>
 								<div id="m-email" class="m-error"></div>
@@ -86,10 +86,7 @@
 									Sign In <i class="fa fa-arrow-circle-right"></i>
 								</button>
 							</div>
-                            <br />
-                             <div class="form-group">
-                                <p style="text-align: center;">Tidak memiliki akun?<br /><a href="<?php echo site_url('user/register'); ?>">Daftarkan diri anda disini</a></p>
-                            </div>
+                            
 						</fieldset>
                        
 					</form>

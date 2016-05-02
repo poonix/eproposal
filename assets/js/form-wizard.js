@@ -49,12 +49,10 @@ var FormWizard = function () {
                     required: true
                 },
                 jmlPenduduk: {
-                    required: true,
-					digits: true
+                    required: true
                 },
                 jmlPengangguran: {
-                    required: true,
-					digits: true
+                    required: true
                 },
                 latarBelakang: {
                     required: true
@@ -79,19 +77,16 @@ var FormWizard = function () {
                     required: true
                 },
                 totalAnggaran: {
-                    digits: true
+                    required: true,
                 },
                 biayaTB: {
-                    required: true,
-					digits: true
+                    required: true
                 },
                 biayaTP: {
-                    required: true,
-					digits: true
+                    required: true
                 },
                 biayaTJ: {
-                    required: true,
-					digits: true
+                    required: true
                 }
             },
             messages: {

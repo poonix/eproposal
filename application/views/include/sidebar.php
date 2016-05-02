@@ -43,7 +43,7 @@
 											<i class="ti-layout-grid2"></i>
 										</div>
 										<div class="item-inner">
-											<span class="title"> Lokasi </span><i class="icon-arrow"></i>
+											<span class="title"> Master Data </span><i class="icon-arrow"></i>
 										</div>
 									</div>
 								</a>
@@ -56,6 +56,16 @@
 									<li>
 										<a href="<?php echo site_url('daftar-kabupaten')?>">
 											<span class="title">Daftar Kabupaten/Kota</span>
+										</a>
+									</li>
+                                    <li>
+										<a href="<?php echo site_url('daftar-kegiatan')?>">
+											<span class="title">Daftar Kegiatan</span>
+										</a>
+									</li>
+                                    <li>
+										<a href="<?php echo site_url('daftar-sub-kegiatan')?>">
+											<span class="title">Daftar Sub Kegiatan</span>
 										</a>
 									</li>
 									<!--
@@ -95,7 +105,7 @@
 										</a>
 									</li>
 									<li>
-										<a href="form_validation.html">
+										<a href="<?php echo site_url('draft-proposal')?>">
 											<span class="title">Draft Proposal</span>
 										</a>
 									</li>

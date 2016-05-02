@@ -18,6 +18,48 @@
 		
 		$('#uploadProposal').hide();
 		
+		//Format currency jml penduduk
+		var fnf = document.getElementById("jmlPenduduk");
+		fnf.addEventListener('keyup', function(evt){
+		    var n = parseInt(this.value.replace(/\D/g,''),10);
+		    fnf.value = n.toLocaleString();
+		}, false);
+
+		//Format currency jml pengangguran
+		var fnfa = document.getElementById("jmlPengangguran");
+		fnfa.addEventListener('keyup', function(evt){
+		    var n = parseInt(this.value.replace(/\D/g,''),10);
+		    fnfa.value = n.toLocaleString();
+		}, false);
+
+		//Format currency total anggaran
+		var ttlang = document.getElementById("totalAnggaran");
+		ttlang.addEventListener('keyup', function(evt){
+		    var n = parseInt(this.value.replace(/\D/g,''),10);
+		    ttlang.value = n.toLocaleString();
+		}, false);
+
+		//Format currency Biaya TB
+		var btb = document.getElementById("biayaTB");
+		btb.addEventListener('keyup', function(evt){
+		    var n = parseInt(this.value.replace(/\D/g,''),10);
+		    btb.value = n.toLocaleString();
+		}, false);
+
+		//Format currency Biaya TP
+		var btp = document.getElementById("biayaTP");
+		btp.addEventListener('keyup', function(evt){
+		    var n = parseInt(this.value.replace(/\D/g,''),10);
+		    btp.value = n.toLocaleString();
+		}, false);
+
+		//Format currency Biaya TJ
+		var btj = document.getElementById("biayaTJ");
+		btj.addEventListener('keyup', function(evt){
+		    var n = parseInt(this.value.replace(/\D/g,''),10);
+		    btj.value = n.toLocaleString();
+		}, false);
+
 		//Province-city dependencies
 		jQuery("#provinsi").change(function(){
 			var provinsi = jQuery("#provinsi").val();
@@ -55,7 +97,9 @@
 				data: "subkegiatan="+subkegiatan,
 				cache: false,
 				success: function(result){
-					jQuery(".anggaran").val(result);
+					//Format currency 
+					var n = parseInt(result.replace(/\D/g,''),10);
+		    		jQuery(".anggaran").val(n.toLocaleString());
 				}
 			});
 		});
@@ -109,8 +153,10 @@
 			var total 	= biayaTB + biayaTP + biayaTJ;
 			var totalTR = total + totalAnggaran;
 			
-			jQuery("#totalTransport").val(total);
-			jQuery("#totalTransportRAB").val(totalTR);
+			var ttl = parseInt(total.replace(/\D/g,''),10);
+			var ttlrab = parseInt(totalTR.replace(/\D/g,''),10);   
+			jQuery("#totalTransport").val(ttl.toLocaleString());
+			jQuery("#totalTransportRAB").val(ttlrab.toLocaleString());
 		});
 		
 		

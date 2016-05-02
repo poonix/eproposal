@@ -61,7 +61,7 @@
 						<tbody>
 						<?php foreach($load_user->result() as $data){ ?>
 							<tr>
-								<td class="jdl"><?php echo $data->nama_depan.' '.$data->nama_belakang; ?></a></td>
+								<td class="jdl"><a href="<?php echo site_url('rincian-pegawai/2/'.$data->iduser);?>"><?php echo $data->nama_depan.' '.$data->nama_belakang; ?></a></td>
 								<td><?php echo $data->nip; ?></td>
 								<td><?php echo $data->email; ?></td>
 								<td><?php echo ucwords($data->definisi); ?></td>

@@ -47,12 +47,12 @@ class User extends MY_Controller {
 		);
 
 		//==== Get Data ====
-		$email		= $this->security->xss_clean(strip_image_tags($this->input->post('form-email')));
+		$username	= $this->security->xss_clean(strip_image_tags($this->input->post('form-email')));
 		$password 	= do_hash($this->security->xss_clean(strip_image_tags($this->input->post('form-password'))));
 		$page		= $this->security->xss_clean(strip_image_tags($this->session->userdata('sess_user_page')));
 		
 		//==== Check Data ====
-		$sql_user = $this->user_model->select_user($email,$password);
+		$sql_user = $this->user_model->select_user($username,$password);
 		
 		if($sql_user->num_rows() > 0)
 		{
@@ -82,6 +82,7 @@ class User extends MY_Controller {
 									'sess_user_id_satker'       => $user[0]['id_satuan_kerja'],
 									'sess_user_provinsi'       	=> $user[0]['provinsi'],
 									'sess_user_kabupaten'       => $user[0]['kabupaten'],
+									'sess_user_foto'       		=> $user[0]['foto_profil'],
 									'sess_user_nip'       		=> $user[0]['nip'],
 									'sess_user_first_name'  	=> ucwords($user[0]['nama_depan']),
 									'sess_user_last_name'  		=> ucwords($user[0]['nama_belakang'])
@@ -641,7 +642,7 @@ class User extends MY_Controller {
     	$this->load->view('page/user/register',$data);
     }
     
-     public function process_register()
+    public function process_register()
     {
 		//No data -> redirected to Daftar Pegawai 
 		if(count($_POST) == 0){

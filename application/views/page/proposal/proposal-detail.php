@@ -25,6 +25,21 @@
 	<div class="container-fluid container-fullw bg-white"> 
 		<div class="row">
 			<div class="col-md-12">
+				<?php
+					if($fpage == 'draft')
+					{
+				?>
+				<a href="<?php echo site_url('draft-proposal');?>">&#8592; Kembali ke Draft Proposal</a>
+				<?php
+					}
+					else
+					{
+				?>
+				<a href="<?php echo site_url('daftar-proposal');?>">&#8592; Kembali ke Daftar Proposal</a>
+				<?php
+					}
+				?>
+				<br/><br/>
 				<h5 class="over-title margin-bottom-15">Rincian dan Rancangan <span class="text-bold">Proposal</span></h5>
 				<p>
 					Rincian data, kegiatan, lokasi, dan anggaran dari proposal yang akan diajukan. <a>Klik untuk ubah data</a>

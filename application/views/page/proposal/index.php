@@ -62,7 +62,7 @@
 						<tbody>
 						<?php foreach($load_pro->result() as $data){ ?>
 							<tr>
-								<td class="jdl"><a href="<?php echo site_url('rincian-proposal/'.$data->idprop); ?>"><?php echo $data->judul_proposal; ?></a></td>
+								<td class="jdl"><a href="<?php echo site_url('rincian-proposal/daftar/'.$data->idprop); ?>"><?php echo $data->judul_proposal; ?></a></td>
 								<td>
 									<?php 
 										$date = '';

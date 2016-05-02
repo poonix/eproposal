@@ -1,3 +1,4 @@
+
 <header class="navbar navbar-default navbar-static-top">
 					<!-- start: NAVBAR HEADER -->
 					<div class="navbar-header">
@@ -23,7 +24,12 @@
 							<li class="dropdown current-user">
                                 <?php if ($this->session->userdata('logged_in') == TRUE) { ?>
 								<a href class="dropdown-toggle" data-toggle="dropdown">
-									<img src="<?php echo base_url(); ?>assets/images/profile/default-profile.gif" alt=""> <span class="username"><?php echo $this->session->userdata('sess_user_first_name'); ?> <i class="ti-angle-down"></i></i></span>
+									<?php if ($this->session->userdata('sess_user_foto') == '' ){?>
+									<img src="<?php echo base_url(); ?>assets/images/profile/default-profile.gif" alt="">
+									<?php }else{ ?>
+									<img src="<?php echo base_url(); ?>assets/images/profile/<?php echo $this->session->userdata('sess_user_foto'); ?>" alt="">
+									<?php } ?>
+									 <span class="username"><?php echo $this->session->userdata('sess_user_first_name'); ?> <i class="ti-angle-down"></i></i></span>
 								</a>
                                 <?php } ?>
 								<ul class="dropdown-menu dropdown-dark">

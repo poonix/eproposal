@@ -9,7 +9,7 @@
 			</div>
 			<ol class="breadcrumb">
 				<li>
-					<span>Lokasi</span>
+					<span>Master Data</span>
 				</li>
 				<li class="active">
 					<span>Daftar Kabupaten/Kota</span>

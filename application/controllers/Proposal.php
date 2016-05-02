@@ -66,8 +66,10 @@ class Proposal extends MY_Controller {
         $data['script']     = $this->load->view('page/proposal/script/script-detailproposal', NULL, TRUE);
 		
 		//==== Get Data ==== 
-		$id_proposal			= $this->uri->segment(2);
+		$flag_page				= $this->uri->segment(2);
+		$id_proposal			= $this->uri->segment(3);
 		$data['load_proposal']	= $this->proposal_model->select_proposal_by_id($id_proposal);
+		$data['fpage']			= $flag_page;
 
         $this->template->view('page/proposal/proposal-detail',$data);
     }
@@ -171,24 +173,91 @@ class Proposal extends MY_Controller {
 		$jenis				= $this->security->xss_clean(strip_image_tags($this->input->post('jenis')));
 		$konten_proposal	= '';
 		$lampiran_proposal	= '';
+		$file_proposal		= '';
 		if($jenis == 'editor')
 		{
 			$konten_proposal	= $this->security->xss_clean(strip_image_tags($this->input->post('editorProposal')));
-			$lampiran_proposal	= '';
 		}
 		elseif($jenis == 'upload')
 		{
-			$konten_proposal	= '';
-			$lampiran_proposal	= $this->security->xss_clean(strip_image_tags($this->input->post('uploadProposal')));
+			$proposal			= '';
+			
+			//Get file proposal name
+			$proposal			= $_FILES['uploadProposal'];
+			$file_proposal		= $proposal['name'];
 		}
 		$kecamatan			= $this->security->xss_clean(strip_image_tags($this->input->post('kecamatan')));
 		$desa				= $this->security->xss_clean(strip_image_tags($this->input->post('desa')));
-		$lampiran_rab		= $this->security->xss_clean(strip_image_tags($this->input->post('lampiranRAB')));
+		//Begin get RAB
+		$rab				= $_FILES['lampiranRAB'];;
+		$file_rab			= $rab['name'];
+		$lampiran_rab		= '';
+		//End get RAB
 		$total_anggaran		= $this->security->xss_clean(strip_image_tags($this->input->post('totalAnggaran')));
 		$biaya_tb			= $this->security->xss_clean(strip_image_tags($this->input->post('biayaTB')));
 		$biaya_tp			= $this->security->xss_clean(strip_image_tags($this->input->post('biayaTP')));
 		$biaya_tj			= $this->security->xss_clean(strip_image_tags($this->input->post('biayaTJ')));
 		$id_user_m			= $this->session->userdata('sess_user_id');
+		// file paths to store
+		$paths				= [];
+		
+		//Upload: Proposal
+		if($file_proposal != '') //No file upload: proposal not empty 
+		{
+			//==== Store Photo ====
+			//Get new filename
+			$ext				= '';
+			$ext 				= end((explode(".", $file_proposal)));
+			$lampiran_proposal	= 'proposal-'.$id_user_m.' '.date('Y.m.d H-i-s');
+			
+			//==== Upload Photo ====
+			$config['upload_path'] 		= './assets/attachments/proposal';
+			$config['allowed_types'] 	= 'pdf|doc|docx|xls|xlsx';
+			$config['max_size']    		= '5000';
+			$config['file_name'] 		= $lampiran_proposal;
+			$config['overwrite'] 		= TRUE;
+			$this->load->library('upload', $config);
+			$this->upload->initialize($config);
+			
+			if(!$this->upload->do_upload('uploadProposal')){
+				$success_p = false;
+			} else {
+				$data = $this->upload->data();
+				$success_p = true;
+			}
+			//==== End of Upload Photo ====
+			
+			if($success_p == true) $lampiran_proposal = $lampiran_proposal.'.'.$ext;
+		}
+		
+		//Upload: RAB
+		if($file_rab != '') //No file upload: RAB not empty 
+		{
+			//==== Store Photo ====
+			//Get new filename
+			$ext			= '';
+			$ext 			= end((explode(".", $file_rab)));
+			$lampiran_rab	= 'rab-'.$id_user_m.' '.date('Y.m.d H-i-s');
+			
+			//==== Upload Photo ====
+			$config['upload_path'] 		= './assets/attachments/rab';
+			$config['allowed_types'] 	= 'pdf|doc|docx|xls|xlsx';
+			$config['max_size']    		= '5000';
+			$config['file_name'] 		= $lampiran_rab;
+			$config['overwrite'] 		= TRUE;
+			$this->load->library('upload', $config);
+			$this->upload->initialize($config);
+			
+			if(!$this->upload->do_upload('lampiranRAB')){
+				$success_r = false;
+			} else {
+				$data = $this->upload->data();
+				$success_r = true;
+			}
+			//==== End of Upload Photo ====
+			
+			if($success_r == true) $lampiran_rab = $lampiran_rab.'.'.$ext;
+		}
 		
 		//==== Insert Data: epro_proposal ====
 		$data_insert	= array(
@@ -196,8 +265,8 @@ class Proposal extends MY_Controller {
 								'provinsi'				=> $provinsi,
 								'kabupaten'				=> $kabupaten,
 								'latar_belakang'		=> $latar_belakang,
-								'jumlah_pengangguran'	=> $jml_pengangguran,
-								'jumlah_penduduk'		=> $jml_penduduk,
+								'jumlah_pengangguran'	=> str_replace(",","",$jml_pengangguran),
+								'jumlah_penduduk'		=> str_replace(",","",$jml_penduduk),
 								'status'				=> 'draft',
 								'created_by'			=> $id_user_m,
 								'created_date'			=> date("Y-m-d H:i:s")
@@ -274,4 +343,142 @@ class Proposal extends MY_Controller {
 		
 		force_download($name, $data);
 	}
+	
+	public function list_proposal_draft()
+	{
+	   
+	    $this->is_logged();
+        
+        //Set Head Content
+		$head['title'] = 'Selamat datang di aplikasi e-proposal' ;
+		$this->load->view('include/head', $head, TRUE);
+        
+        //Set Spesific Javascript page
+        $data['script']     = $this->load->view('page/proposal/script/script', NULL, TRUE);
+        $data['load_pro']   = $this->proposal_model->select_proposal_by_status('draft');
+        
+		$this->template->view('page/proposal/list-proposal-draft',$data);
+	}
+	
+	public function upload_approval()
+	{
+	   
+	    $this->is_logged();
+        
+        //Set Head Content
+		$head['title'] = 'Selamat datang di aplikasi e-proposal' ;
+		$this->load->view('include/head', $head, TRUE);
+        
+		//==== Get Data ====
+		$id_proposal	= $this->uri->segment(3);
+		
+        //Set Spesific Javascript page
+        $data['script']     	= $this->load->view('page/proposal/script/script', NULL, TRUE);
+        $data['load_proposal']  = $this->proposal_model->select_proposal_by_id($id_proposal);
+        $data['id_proposal']	= $id_proposal;
+        
+		$this->template->view('page/proposal/upload-approval',$data);
+	}
+	
+	//Function: Process of uploading Approval File
+    public function process_upload_approval()
+    {
+		//No data -> redirected to Dashboard
+		if(count($_POST) == 0){
+			redirect('dashboard', 'location');
+		}
+		
+		
+		//Default value is OK. If validations fail result will change to NG.
+		$output = array(
+			'result'  		=> 'OK',
+			'msg'			=> ''
+		);
+
+		//==== Get Data ====
+		$id_proposal	= $this->security->xss_clean(strip_image_tags($this->input->post('f-hidden-id-proposal')));
+		$id_user		= $this->session->userdata('sess_user_id');
+		$catatan		= $this->security->xss_clean(strip_image_tags($this->input->post('f-ua-notes')));
+		$file_approval	= $_FILES['f-ua-file-approval'];
+		$file_name		= $file_approval['name'];
+		
+		if($file_name == '')
+		{
+			$output = array(
+						'result'  		=> 'NG',
+						'msg'			=> 'Mohon unggah berkas persetujuan Anda.'
+					);
+		}
+		else
+		{
+			// file paths to store
+			$paths		= [];
+			
+			//==== Set Data ====
+			$file_size	= $file_approval['size'];
+			$ext = end((explode(".", $file_name)));
+			
+			if($file_size > 5242880) // 5mb, 1024*1024*5
+			{
+				$output = array(
+					'result'  		=> 'NG',
+					'msg'			=> 'Ukuran file terlalu besar.'
+				);
+			}
+			elseif($ext!='pdf' and $ext!='doc' and $ext!='docx' and $ext!='xls' and $ext!='xlsx' and $ext!='jpg' and $ext!='jpeg' and $ext!='gif' and $ext!='png')
+			{
+				$output = array(
+					'result'  		=> 'NG',
+					'msg'			=> 'Tipe file tidak sesuai.'
+				);
+			}
+			else
+			{
+				$new_file_name	= 'approval-'.$id_user.' '.date('Y.m.d H-i-s');
+				
+				//==== Upload Photo ====
+				$config['upload_path'] 		= './assets/attachments/approval';
+				$config['allowed_types'] 	= 'pdf|doc|docx|xls|xlsx|jpeg|gif|jpg|png';
+				$config['max_size']    		= '5000';
+				$config['file_name'] 		= $new_file_name;
+				$config['overwrite'] 		= TRUE;
+				$this->load->library('upload', $config);
+				$this->upload->initialize($config);
+				
+				if(!$this->upload->do_upload('f-ua-file-approval')){
+					// delete any uploaded files
+					foreach ($paths as $file) {
+						unlink($file);
+					}
+					
+					$output = array(
+						'result'  		=> 'NG',
+						'msg'			=> 'Terjadi kesalahan, mohon ulangi kembali.'
+					);
+				} else {
+					$data = $this->upload->data();
+					
+					//==== Insert Data to Database ====
+					$data_insert	= array(
+												'id_proposal'		=> $id_proposal,
+												'tingkat_verifikasi'=> 'kabupaten',
+												'lampiran'			=> $new_file_name.'.'.$ext,
+												'catatan' 			=> $catatan,
+												'status_verifikasi'	=> 'draft',
+												'created_by'		=> $id_user,
+												'created_date' 		=> date("Y-m-d H:i:s")
+											);
+					$this->proposal_model->insert_proposal_verifikasi($data_insert);
+					$output = array(
+						'result'  		=> 'OK',
+						'msg'			=> ''
+					);
+				}
+			}
+		}
+		
+		echo json_encode($output);
+		exit;
+	}
+    
 }

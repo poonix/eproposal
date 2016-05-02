@@ -72,11 +72,11 @@
 			//=== HTML5 VALIDATION IF BROWSER DOESNT SUPPORT ===
 			var i = 0;
 			if($('#f-ep-firstname').val() == ''){
-				$("#m-ep-firstname").html('<div class="label label-danger">Harus diisi</div>');
+				$("#m-ep-firstname").html('<div class="label label-danger">Wajib diisi</div>');
 				i = 1;
 			}
 			if($('#f-ep-nip').val() == ''){
-				$("#m-ep-nip").html('<div class="label label-danger">Harus diisi</div>');
+				$("#m-ep-nip").html('<div class="label label-danger">Wajib diisi</div>');
 				i = 1;
 			}
 			else
@@ -88,7 +88,7 @@
 				}
 			}
 			if($('#f-ep-email').val() == ''){
-				$("#m-ep-email").html('<div class="label label-danger">Harus diisi</div>');
+				$("#m-ep-email").html('<div class="label label-danger">Wajib diisi</div>');
 				i = 1;
 			}
 			else
@@ -107,15 +107,15 @@
 				}
 			}
 			if($('#f-ep-province option:selected').val() == '0'){
-				$("#m-ep-province").html('<div class="label label-danger">Harus diisi</div>');
+				$("#m-ep-province").html('<div class="label label-danger">Wajib diisi</div>');
 				i = 1;
 			}
 			if($('#f-ep-city option:selected').val() == '0' || $('#f-ep-city option:selected').val() == ''){
-				$("#m-ep-city").html('<div class="label label-danger">Harus diisi</div>');
+				$("#m-ep-city").html('<div class="label label-danger">Wajib diisi</div>');
 				i = 1;
 			}
 			if($('#f-ep-status option:selected').val() == ''){
-				$("#m-ep-status").html('<div class="label label-danger">Harus diisi</div>');
+				$("#m-ep-status").html('<div class="label label-danger">Wajib diisi</div>');
 				i = 1;
 			}
 			
@@ -178,11 +178,11 @@
 			//=== HTML5 VALIDATION IF BROWSER DOESNT SUPPORT ===
 			var i = 0;
 			if($('#f-cp-password').val() == ''){
-				$("#m-cp-password").html('<div class="label label-danger">Harus diisi</div>');
+				$("#m-cp-password").html('<div class="label label-danger">Wajib diisi</div>');
 				i = 1;
 			}
 			if($('#f-cp-confirm-password').val() == ''){
-				$("#m-cp-confirm-password").html('<div class="label label-danger">Harus diisi</div>');
+				$("#m-cp-confirm-password").html('<div class="label label-danger">Wajib diisi</div>');
 				i = 1;
 			}
 			else

@@ -3,7 +3,7 @@
 class user_model extends CI_Model
 {
 	//==== Select Data ====
-    public function select_user($email,$password)
+    public function select_user($username,$password)
     {
         /*return $this->db
 					->where('email',$email)
@@ -16,7 +16,7 @@ class user_model extends CI_Model
                     ->select('epro_user.*, epro_user_group.*, epro_user.id as iduser')
 					->from('epro_user')
 					->join('epro_user_group','epro_user.id_user_group = epro_user_group.id','LEFT') //Cannot sign in if user gtoup not assigned yet
-					->where('email',$email)
+					->where('username',$username)
 					->where('password',$password)
                     ->get();
     }
